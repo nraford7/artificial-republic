@@ -171,95 +171,48 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);
 <main class="essay">
 
   <div class="intro reveal">
-    <p class="lede">I am writing this from a room in Ca' da Mosto, one of the oldest merchant houses on the Grand Canal in Venice. Across the water sits the Fabbriche Nuove, the long, low administrative range that Jacopo Sansovino raised beside the Rialto market. It is not a palace. There is no grand princely doorway announcing <em>I rule this place</em>. Instead there is only rhythm, bay, bay, bay, bay, office after office, magistrate after magistrate, shop after shop. The individual disappears into the institution.</p>
-    <p>That rhythm is not decoration. Behind those identical bays sat the working organs of a state: commercial courts, customs officials, the magistrates who policed weights and grain and salt and shipping. Sansovino's building did not house a prince. It housed a bureaucracy, and by the time he raised it in the sixteenth century that bureaucracy was already three centuries old. The Renaissance facade was a monument to an administrative machine that had grown up in the Middle Ages.</p>
-    <p>Why so early? Because Venice had almost no land, and a city that lives by the sea cannot be run like a kingdom that lives by the plough. A single voyage to Alexandria might bind together twenty investors, borrowed money, a hired captain, foreign customs regimes, and the standing risk of shipwreck and piracy, with months of waiting before any of it resolved. You cannot run that on a handshake. It takes records, contracts, notaries, courts, standard procedures, auditors. Maritime commerce is unforgiving of bad administration, and Venice became very good at turning each recurring problem into a permanent institution.</p>
-    <p>The rule-writers were not an outside bureaucracy imposed on the merchants. <em>They were the merchants,</em> writing the rules for a game in which their own fortunes were at stake. Their private wealth rode on the quality of their public institutions. That alignment is rare, and it changed how the rules got written. Venice learned early what most states pay in blood to learn: a complex society runs on good plumbing, not on a brilliant ruler, on its courts, its records, its offices, its checks. The institution outlasts the men who staff it.</p>
-    <p>This matters now because we are building a new kind of powerful actor, and reaching, by default, for the design Venice spent centuries learning to distrust. We keep asking one question about artificial intelligence: <em>how smart can we make the model?</em> It is the wrong question, or at least the question a medieval prince would have asked, and Venice worked out why seven hundred years ago.</p>
+    <p class="lede">I am writing this from Ca' da Mosto, one of the oldest merchant houses on the Grand Canal. Across the water sits the Fabbriche Nuove, the long administrative range Jacopo Sansovino raised beside the Rialto in 1555. It is not a palace. There is no grand doorway announcing <em>I rule this place</em>. Only rhythm: bay, bay, bay, bay, office after office, magistrate after magistrate. The individual disappears into the institution.</p>
+    <p>Behind those bays sat the organs of a state already three centuries old by the time Sansovino gave them a facade: commercial courts, customs magistrates, the officials who policed weights, grain, salt, and shipping. Venice had almost no land. A single voyage to Alexandria might bind twenty investors, borrowed money, a hired captain, foreign customs regimes, and the standing risk of piracy, with months before any of it resolved. You cannot run that on a handshake. Maritime commerce is unforgiving, and Venice became very good at turning each recurring problem into a permanent office.</p>
+    <p>The rule-writers were not outsiders imposed on the merchants. <em>They were the merchants,</em> staking their own fortunes on institutional quality. After the Serrata of 1297 closed the Great Council, roughly two hundred families held the Republic like shareholders, none of them allowed to own it. That alignment produced good rules, but it came at a price the essay-length version of Venice often skips: the vast majority of the population was locked out entirely. When we build the AI version, someone should ask who the excluded class is.</p>
+    <p>I spent a decade advising a government that was, in effect, trying to build institutions at speed, and I watched what happens when you get the plumbing wrong. The buildings look magnificent. The decisions are terrible. Venice matters now because we are reaching, by default, for the design it spent centuries learning to distrust: one brilliant ruler holding all the keys.</p>
   </div>
 
   <section class="chapter reveal">
     <div class="chapter-head"><span class="numeral">I</span><h2>The Doge Is the Wrong Architecture</h2></div>
-    <p>The dream is everywhere right now: one enormous agent. You hand it the whole company and say, <em>read everything, decide everything, execute everything.</em> Give it the credentials, the tools, the context, the keys. Then let its intelligence do the rest.</p>
-    <p>This is the absolute-monarch architecture: fast, powerful, and catastrophic when it fails. One hallucination, one poisoned context, one stolen credential, and the mistake does not stay contained. It becomes policy, and spreads through everything the monarch touches.</p>
-    <p>Venice learned this the hard way. Its early doges behaved like hereditary princes, and several tried to turn the Republic into a family dynasty. So, over generations, the aristocracy hollowed the office out. By the mature Republic the Doge was magnificent and nearly powerless. He could not open the state's mail in private, conduct foreign policy alone, or treat the treasury as his purse. Councillors surrounded him. Documents were witnessed. Even <em>electing</em> him ran through a baroque machine of lot and ballot, alternating chance and choice until forty-one final electors emerged. The whole contraption existed to stop any one faction fixing the result.</p>
-    <p>Put simply, Venice looked at its most capable, most prestigious actor and decided: <em>do not give him root access.</em></p>
-    <p>Distrust built into the design on purpose, aimed at no one in particular, is the instinct we have not yet learned, even in an industry worth trillions.</p>
+    <p>The dream is everywhere: one enormous agent, handed the whole company. <em>Read everything, decide everything, execute everything.</em> The absolute-monarch architecture. Fast, powerful, and catastrophic when it fails, because the mistake becomes policy and spreads through everything the monarch touches.</p>
+    <p>Venice hollowed out exactly this role. Its early doges tried to build dynasties; the aristocracy responded by stripping the office, generation by generation, until the Doge was magnificent and nearly powerless. Even electing him ran through a machine of alternating lot and ballot, forty-one final electors, a protocol whose only purpose was to stop any faction fixing the result. That is not "checks and balances" in the vague sense. It is a specific anti-capture mechanism, and it offers AI system designers something more concrete than the usual advice: not just "limit permissions" but <em>inject randomness into selection to break collusion</em>. The lot-and-ballot protocol is, as far as I know, unexplored in multi-agent orchestration. It should be.</p>
   </section>
 
   <figure class="plate reveal">
     <img src="images/doge.jpg" alt="A single ornate palazzo doorway emerging alone from thick dawn fog at the water's edge, the rest of the building lost in mist.">
-    <figcaption>The lone ruler is the most seductive architecture, and the most dangerous. <span>One door, holding all the fog.</span></figcaption>
+    <figcaption>The lone ruler is the most seductive architecture, and the most dangerous.</figcaption>
   </figure>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">II</span><h2>No Ministry of Everything</h2></div>
-    <p>You can watch that instinct build the city. Complicated shipping produced maritime magistrates; strategic grain, grain officials; unaudited books, auditors; plague, a board of health, and quarantine with it. There was no Ministry of Everything, only a widening set of narrow offices, each with its own mandate, tools, permissions, and test of success.</p>
-    <p>Any engineer building agentic systems will recognise the shape: an orchestrator handing work to narrower agents, a research agent, a procurement agent, a compliance agent, a verifier, each scoped, each least-privileged. The finance magistrate has no reason to send mail; the research agent has no business moving money. A Venetian would grasp the principle before you finished the sentence.</p>
+    <div class="chapter-head"><span class="numeral">II</span><h2>Where the Analogy Breaks</h2></div>
+    <p>The parallels between Venetian institutions and agentic systems are real, but they are also easy to overclaim, and the overclaims are where practitioners get hurt.</p>
+    <p>Venice built overlapping jurisdictions, several magistracies able to catch the same wrongdoing. That looks like redundant verification agents. But Venetian magistrates were humans with independent judgment and competing political incentives. Two instances of the same language model reviewing each other's work share training data, failure modes, and blind spots. That is correlated failure dressed as independence. The structural pattern does not transfer unless you use genuinely different verification: a separate model, a formal invariant check, a human in the loop. Duplicate the form without the independence and you get the appearance of safety, not the thing itself.</p>
+    <p>Similarly, the Venetian archive is a good metaphor for persistent memory, but "write it down" is the beginning of an engineering problem, not the end of one. Retrieval-augmented generation has its own failure modes, stale embeddings, relevance-ranking errors, context poisoning, that have no Venetian analogue.</p>
+    <p>Venice also created the Council of Ten, a supervisory body with sweeping powers to watch the other magistracies. In our terms, a privileged monitoring agent. But Venice did not leave the question "who watches the watcher?" unanswered, as is sometimes claimed. The Ten served one-year terms, were barred from immediate reappointment, and were checked by the Capi and the Avogadori di Comun. The partial answers Venice built, rotation, term limits, independent auditors, are more useful to an AI architect than the unanswered philosophical question. They suggest that the supervisor agent should have a finite context window by design, should be periodically replaced, and should itself be logged by a separate, minimal process.</p>
   </section>
-
-  <figure class="plate reveal">
-    <img src="images/institutions.jpg" alt="Endless identical stone arches of a Venetian arcade receding one after another into grey mist.">
-    <figcaption>Bay after identical bay. <span>Venice answered every recurring problem with another narrow office.</span></figcaption>
-  </figure>
-
-  <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">III</span><h2>Rialto Was an API Layer</h2></div>
-    <p>Cross the water to the market itself, and the analogy sharpens.</p>
-    <p>Medieval trade was chaos: many currencies, languages, legal systems, measures, and jurisdictions colliding at once. Rialto did not abolish that complexity; it hid it behind standard interfaces. Weights and measures were schemas; notarial contracts, structured messages; commercial courts, exception handling; customs officials, the gateway; merchant registries, identity and authentication; the public banks, the transaction layer; the archives, persistent storage. Each magistracy was a service, and Rialto itself the platform.</p>
-    <p>The genius was never eliminating complexity, which is impossible. It was hiding complexity behind clean interfaces, so a whole city could trade at a scale no single person could hold in their head.</p>
-    <p>Then there is the archive, and the Venetian habit of writing everything down. Officials rotated constantly; a man held an office for months and moved on. Normally that wrecks institutional competence, since every newcomer relearns the world. Venice fixed it by refusing to let knowledge live inside people. Decisions, precedents, ledgers, dispatches, all of it piled up into a memory that outlived any officeholder.</p>
-    <p>Here the parallel is exact. A large language model is ephemeral. It runs brilliantly for thirty seconds, then vanishes, taking everything with it. The officeholder was ephemeral compute; the office, the persistent identity; the archive, the long-term memory. <em>You do not want the state of an enterprise sitting inside a context window.</em> Venice would put it in the archive. Who is this user, what have we decided, what did we try last time, what have we promised: a king dies and takes the answers with him, a bureaucracy writes them down. That is not a footnote. It is the whole game.</p>
-  </section>
-
-  <figure class="plate reveal">
-    <img src="images/archive.jpg" alt="A Renaissance stone facade dissolving into its own broken reflection on the dark surface of a canal at dusk.">
-    <figcaption>What the water remembers, the Republic wrote down. <span>The office outlives the officeholder.</span></figcaption>
-  </figure>
 
   <div class="pull reveal">
     <span class="mark">&ldquo;</span>
-    <q>The genius was never eliminating complexity. It was hiding it behind clean interfaces, so a whole city could trade at a scale <em>no single person could hold in their head.</em></q>
+    <q>Venice did not solve the alignment problem by making its patricians virtuous. It solved it by <em>making virtue unnecessary.</em></q>
   </div>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">IV</span><h2>Governance Is a Form of Intelligence</h2></div>
-    <p>A comfortable idea is going around: that enough intelligence will dissolve the problem of coordination, that a smart enough system will not need governing. Venice suggests the opposite.</p>
-    <p><em>As the power of individual actors rises, governance matters more, not less.</em> Venetian merchants were formidable autonomous agents. They crossed continents, borrowed fortunes, commanded ships, bargained with sultans. Because they were so powerful, the Republic wrapped them in protocol. The mature Venetian state was a multi-agent system: powerful, partly self-interested agents under shared rules and a common, durable memory.</p>
-    <p>The Republic never pretended its patricians shared one goal. The Corner family wanted what the Contarini did not. Merchants competed, factions formed, everyone chased money and rank. Its constitution was a centuries-long attempt to make selfish local incentives add up to a tolerable public result. Several hundred families held the Republic like shareholders, and none of them was allowed to own it. Francis Fukuyama, across two volumes on the origins of political order, argues that the wealth of nations turns less on resources than on <em>state capacity</em>, the power to build institutions that constrain the powerful. Venice is that thesis in stone and water. And what is it, in today's language, but the alignment problem? You need not make every agent want the same thing, so long as you shape the environment to catch bad behaviour and reward cooperation. That is mechanism design, five hundred years before the term.</p>
-    <p>Watch how the Republic handled a suspected fraud. No single magistrate was detective, prosecutor, judge, executioner, <em>and</em> accountant at once. One body gathered the evidence, another weighed it, another authorised the penalty, another recorded what happened. Set that against the shape we keep building: the agent thinks, decides, executes, and then reports that the execution succeeded. The agent that tells you it wired fifty thousand euros should not be the only authority confirming the money moved. Venice called this institutional distrust. We call it least privilege, separation of duties, independent verification. Same idea, older accent.</p>
-    <p>The Venetians even grasped adversarial evaluation. They built <em>overlapping</em> jurisdictions on purpose, several bodies able to notice the same wrongdoing. To an efficiency consultant that looks like waste. Why pay for redundancy? Because if one office is captured, another may catch it, and everyone can be audited after the fact. Instead of <em>agent, then action</em>, you get <em>proposal, challenge, authorisation, execution, audit</em>. It costs more, it runs slower, and now and then it is absurd. It also cuts the tail risk of the one catastrophic mistake, which is exactly the trade we are now, reluctantly, learning to make with agents that can reach into the real world.</p>
+    <div class="chapter-head"><span class="numeral">III</span><h2>What Venice Actually Teaches</h2></div>
+    <p>The standard lessons, least privilege, separation of duties, persistent state, adversarial checks, are real but they are already in every enterprise architecture guide. If that were all Venice offered, the canal is a nice backdrop and nothing more.</p>
+    <p>What Venice adds is a harder, less comfortable insight. Francis Fukuyama, across <em>The Origins of Political Order</em> and <em>Political Order and Political Decay</em>, argues that institutional quality matters more than resources or talent. Venice is his best inadvertent case study: several hundred competing families, no shared goal, enormous individual capability, and a constitutional system that made selfish local incentives add up to a tolerable public result. Not through alignment of values, which was never achieved, but through the design of the environment: rotation of offices, mandatory audits, enforced transparency, randomised selection, overlapping oversight.</p>
+    <p>That is something close to mechanism design, though calling it that precisely is more than the analogy can bear. The point is that Venice did not solve the alignment problem by making its patricians virtuous. It solved it by making virtue unnecessary. The environment caught bad behaviour whether the individual intended it or not.</p>
+    <p>We are nowhere near this with agentic AI. We are still building systems that assume good behaviour from the model and bolt on safety as an afterthought, which is the medieval-prince approach to governance. The question is not how smart we can make the agent. It is how well we can design the system the agent runs inside, its permissions, its memory, its auditors, its term limits, its randomised checks, so that the system holds even when the agent is wrong.</p>
+    <p>Venice lasted a thousand years on that principle. It also eventually collapsed, ossified by the very oligarchy that once made it strong. That part of the lesson matters too.</p>
   </section>
-
-  <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">V</span><h2>Who Watches the Watcher?</h2></div>
-    <p>And then there is the Council of Ten, the part that should unsettle us.</p>
-    <p>Venice built a small, secretive body with sweeping powers to protect the state: to watch the other magistracies, detect anomalies, suspend authority, investigate the compromised, escalate the dangerous. In our terms, a privileged supervisory agent. Useful, obviously useful. You want something watching the fleet.</p>
-    <p>But now you have an agent with more power than the agents it polices, and Venice walked straight into the oldest question in political theory. <em>Who watches the watcher?</em> The Ten had to be fenced with procedure and fought over for centuries. It is an AI-governance thought experiment written seven hundred years early, and we have not improved on the answer. We have only reached the same question with faster hardware.</p>
-  </section>
-
-  <figure class="plate reveal">
-    <img src="images/council.jpg" alt="A narrow, dark side canal between tall shadowed buildings at dusk, a single distant lantern glowing through the fog.">
-    <figcaption>A single distant light. <span>Who watches the watcher?</span></figcaption>
-  </figure>
-
-  <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">VI</span><h2>The View From the Canal</h2></div>
-    <p>So I sit here and read the far bank like a systems diagram.</p>
-    <p>Ca' da Mosto, where I am staying, is an autonomous economic agent. The Grand Canal is the network. Rialto is the transaction platform. The Fabbriche Nuove across the water are the governance and administrative services. The archives are persistent state, the magistracies specialised agents, the councils orchestration and authorisation, the Doge an executive interface on a short leash of permissions. Over all of it, the laws and constitution of the Republic, runs the protocol.</p>
-    <p>That is why Venice lasted the better part of a thousand years, through wars, plagues, financial panics, incompetent doges, and the ordinary failures of ordinary men. The system did not need every node to be brilliant. The architecture carried an intelligence no single participant held.</p>
-    <p>We keep asking how intelligent we can make the agent. Venice asks the better question: <em>how intelligent can we make the system the agents run inside?</em> The next leap may look less like an all-powerful artificial Doge and more like an artificial Venetian Republic, many capable agents on narrow mandates, explicit permissions, durable memory, standard interfaces, independent verification, adversarial checks, escalation paths, and enough friction that no single hallucination can harden into state policy.</p>
-    <p>Venice never grew rich because Venetians were good at trading. It grew rich because it built a machine that let a whole city trade at a scale no one person could manage. That is the modern thing you feel at the Rialto: an operating system for collective action, run for centuries on human hardware.</p>
-    <p>We are about to build the same thing out of silicon. The question is whether we remember what it took to make it hold. Governance is not the tax we pay on intelligence.</p>
-  </section>
-
-  <div class="pull reveal">
-    <q>Governance is not the tax we pay on intelligence. Governance <em>is</em> a form of intelligence. And it is the form we have been least willing to build.</q>
-  </div>
 
   <figure class="plate reveal">
     <img src="images/closing.jpg" alt="First light on the Grand Canal, mist rising off perfectly still water, silhouetted domes and merchant houses mirrored below.">
-    <figcaption>First light on the Grand Canal. <span>The architecture carried an intelligence no single citizen possessed.</span></figcaption>
+    <figcaption>First light on the Grand Canal.</figcaption>
   </figure>
 
 </main>
