@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Artificial Republic — Noah Raford</title>
+<meta name="description" content="What a thousand-year-old city on the water can teach us about building machines that act. An essay on Venice, governance, and agentic AI by Noah Raford.">
+<meta name="author" content="Noah Raford">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Artificial Republic">
+<meta property="og:description" content="What a thousand-year-old city on the water can teach us about building machines that act.">
+<meta property="og:image" content="images/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:        oklch(0.17 0.014 205);
+  --ink-deep:   oklch(0.13 0.013 205);
+  --panel:      oklch(0.21 0.015 205);
+  --mist:       oklch(0.92 0.012 85);
+  --mist-soft:  oklch(0.80 0.012 90);
+  --muted:      oklch(0.63 0.012 200);
+  --gold:       oklch(0.76 0.10 78);
+  --gold-deep:  oklch(0.66 0.10 74);
+  --rule:       oklch(0.34 0.012 205);
+  --serif: "Spectral", Georgia, serif;
+  --display: "Libre Caslon Display", "Spectral", Georgia, serif;
+  --measure: 34rem;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--mist);
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.06rem,0.66rem + 0.62vw,1.28rem);
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+/* film grain, tying the page to the photography */
+body::after{
+  content:"";position:fixed;inset:0;z-index:9;pointer-events:none;opacity:0.05;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img{display:block;max-width:100%;height:auto}
+
+/* reading progress */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:20;
+  background:linear-gradient(90deg,var(--gold-deep),var(--gold));
+  box-shadow:0 0 12px var(--gold);transition:width .12s linear}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;
+  overflow:hidden}
+.hero-img{position:absolute;inset:0}
+.hero-img img{width:100%;height:100%;object-fit:cover;
+  animation:slowzoom 22s ease-out forwards}
+@keyframes slowzoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+.hero-img::after{content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(to top, var(--ink) 2%, transparent 42%),
+    linear-gradient(to right, oklch(0.13 0.013 205 / .55), transparent 60%)}
+.hero-inner{position:relative;z-index:2;width:100%;
+  max-width:74rem;margin:0 auto;padding:0 clamp(1.4rem,5vw,4rem) clamp(3rem,8vh,6rem)}
+.eyebrow{font-family:var(--serif);font-style:italic;color:var(--gold);
+  font-size:clamp(.95rem,.9rem + .3vw,1.15rem);letter-spacing:.02em;
+  margin-bottom:1.1rem;opacity:0;animation:rise 1s ease-out .2s forwards}
+h1{font-family:var(--display);font-weight:400;
+  font-size:clamp(3rem,1.4rem + 7.4vw,8.2rem);line-height:.94;
+  letter-spacing:-.015em;color:var(--mist);
+  text-shadow:0 2px 40px oklch(0.10 0.02 205 / .6);
+  opacity:0;animation:rise 1.15s cubic-bezier(.16,1,.3,1) .34s forwards}
+.dek{font-family:var(--display);font-size:clamp(1.15rem,.9rem + 1vw,1.75rem);
+  line-height:1.32;color:var(--mist-soft);max-width:33ch;margin-top:1.5rem;
+  opacity:0;animation:rise 1.15s cubic-bezier(.16,1,.3,1) .56s forwards}
+.byline{margin-top:2.4rem;font-size:.95rem;color:var(--muted);letter-spacing:.03em;
+  opacity:0;animation:rise 1.15s ease-out .78s forwards}
+.byline b{color:var(--mist-soft);font-weight:500}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.scrollcue{position:absolute;left:50%;bottom:1.7rem;transform:translateX(-50%);
+  z-index:3;color:var(--muted);font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;
+  opacity:0;animation:rise 1s ease-out 1.1s forwards, float 2.6s ease-in-out 1.6s infinite}
+@keyframes float{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
+
+/* ---------- reading column ---------- */
+.essay{max-width:var(--measure);margin:0 auto;
+  padding:clamp(4rem,12vh,8rem) clamp(1.4rem,5vw,2rem) 2rem}
+.chapter{margin:clamp(3.4rem,9vh,6rem) 0}
+.chapter-head{display:flex;align-items:baseline;gap:1.1rem;margin-bottom:1.9rem}
+.numeral{font-family:var(--display);font-size:clamp(2.6rem,1.4rem + 4vw,4.4rem);
+  line-height:.8;color:transparent;-webkit-text-stroke:1.1px var(--gold-deep);
+  flex:0 0 auto;opacity:.9}
+.chapter h2{font-family:var(--display);font-weight:400;
+  font-size:clamp(1.7rem,1.2rem + 2vw,2.7rem);line-height:1.08;
+  letter-spacing:-.01em;color:var(--mist)}
+.essay p{margin:0 0 1.4rem}
+.essay p + p{text-indent:0}
+.lede{font-size:1.08em}
+.lede::first-letter{
+  font-family:var(--display);float:left;color:var(--gold);
+  font-size:4.9em;line-height:.72;padding:.06em .12em 0 0;margin-top:.02em}
+em{font-style:italic;color:var(--mist)}
+.intro p{color:var(--mist-soft)}
+
+/* ---------- full-bleed plates ---------- */
+.plate{position:relative;width:100vw;left:50%;margin-left:-50vw;
+  margin-top:clamp(3rem,8vh,5rem);margin-bottom:clamp(3rem,8vh,5rem)}
+.plate img{width:100%;height:clamp(60vh,66vh,82vh);object-fit:cover}
+.plate figcaption{position:absolute;left:0;right:0;bottom:0;
+  padding:clamp(2rem,6vh,4rem) clamp(1.4rem,5vw,4rem) clamp(1.3rem,3vh,2rem);
+  background:linear-gradient(to top,oklch(0.11 0.013 205 / .82),transparent);
+  font-family:var(--display);font-size:clamp(1.05rem,.9rem + .6vw,1.5rem);
+  line-height:1.32;color:var(--mist);max-width:46rem}
+.plate figcaption span{color:var(--muted)}
+
+/* ---------- pull quote ---------- */
+.pull{max-width:52rem;margin:clamp(3.6rem,10vh,7rem) auto;
+  padding:0 clamp(1.4rem,5vw,2rem);text-align:center}
+.pull q{font-family:var(--display);quotes:none;
+  font-size:clamp(1.6rem,1.1rem + 2.6vw,3rem);line-height:1.16;
+  letter-spacing:-.01em;color:var(--mist)}
+.pull q em{color:var(--gold);font-style:italic}
+.pull .mark{display:block;font-family:var(--display);color:var(--gold-deep);
+  font-size:3.4rem;line-height:0;margin-bottom:1.4rem;opacity:.7}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);
+  background:var(--ink-deep)}
+.foot-inner{max-width:var(--measure);margin:0 auto;
+  padding:clamp(3rem,7vh,5rem) clamp(1.4rem,5vw,2rem)}
+.foot-inner .sig{font-family:var(--display);font-size:1.5rem;color:var(--mist);margin-bottom:.5rem}
+.foot-inner p{color:var(--muted);font-size:.98rem;margin:0 0 .6rem;max-width:52ch}
+.foot-inner a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-deep);
+  padding-bottom:1px;transition:color .2s}
+.foot-inner a:hover{color:var(--mist)}
+.colophon{margin-top:2rem;font-size:.82rem;color:var(--rule);line-height:1.7}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(30px);
+  transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important}
+  .reveal{opacity:1;transform:none;transition:none}
+  .hero-img img{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<header class="hero">
+  <div class="hero-img">
+    <img src="images/hero.jpg" alt="The long, low arcade of the Fabbriche Nuove receding into dawn fog along the Grand Canal, its columns mirrored in still water.">
+  </div>
+  <div class="hero-inner">
+    <p class="eyebrow">An essay</p>
+    <h1>The Artificial<br>Republic</h1>
+    <p class="dek">What a thousand-year-old city on the water can teach us about building machines that act.</p>
+    <p class="byline">By <b>Noah Raford</b> &nbsp;·&nbsp; Written on the Grand Canal, Venice</p>
+  </div>
+  <div class="scrollcue">Scroll</div>
+</header>
+
+<main class="essay">
+
+  <div class="intro reveal">
+    <p class="lede">I am writing this from a room in Ca' da Mosto, one of the oldest merchant houses on the Grand Canal in Venice. Across the water sits the Fabbriche Nuove, the long, low administrative range that Jacopo Sansovino raised beside the Rialto market. It is not a palace. There is no grand princely doorway announcing <em>I rule this place</em>. Instead there is only rhythm, bay, bay, bay, bay, office after office, magistrate after magistrate, shop after shop. The individual disappears into the institution.</p>
+    <p>I keep looking at it, because I think it is trying to tell us something about the machines we are now busy building.</p>
+    <p>We have spent three years asking one question about artificial intelligence: <em>how smart can we make the model?</em> It is the wrong question. Or rather, it is the question a medieval prince would have asked, and Venice, seven hundred years ago, had already learned why the prince is the wrong answer.</p>
+  </div>
+
+  <section class="chapter reveal">
+    <div class="chapter-head"><span class="numeral">I</span><h2>The Doge Is the Wrong Architecture</h2></div>
+    <p>Picture the seductive dream of the moment. One enormous agent. You hand it the whole company and say: <em>read everything, decide everything, execute everything.</em> Give it the credentials, the tools, the context, the keys. Let its intelligence do the rest.</p>
+    <p>This is the absolute-monarch architecture. It is fast, it is powerful, and its failure modes are catastrophic. One hallucination, one poisoned context, one drifted goal, one stolen credential, and the error does not stay contained. It becomes policy. It propagates through everything the monarch touches, which is everything.</p>
+    <p>Venice learned this the hard way. Its early doges behaved like hereditary princes, and several tried to turn the Republic into a family dynasty. So the aristocracy did something remarkable: over generations, they hollowed the office out. By the mature Republic the Doge was magnificent and almost powerless. He could not open state correspondence in private, could not conduct foreign policy alone, could not name his successor, could not treat the treasury as his purse. Councillors surrounded him. Documents were witnessed. Even <em>electing</em> him required a baroque machine of lot and ballot, alternating chance and choice until forty-one final electors emerged, an apparatus whose entire purpose was to make it impossible for any one faction to fix the result.</p>
+    <p>Put simply, Venice looked at its most capable, most prestigious actor and decided: <em>do not give him root access.</em></p>
+    <p>That instinct, institutional distrust as a design principle rather than a personal insult, is the thing we have not yet learned. And it is worth asking why a republic of merchants understood it, while a trillion-dollar industry does not.</p>
+  </section>
+
+  <figure class="plate reveal">
+    <img src="images/doge.jpg" alt="A single ornate palazzo doorway emerging alone from thick dawn fog at the water's edge, the rest of the building lost in mist.">
+    <figcaption>The lone ruler is the most seductive architecture, and the most dangerous. <span>One door, holding all the fog.</span></figcaption>
+  </figure>
+
+  <section class="chapter reveal">
+    <div class="chapter-head"><span class="numeral">II</span><h2>A City That Turned Problems Into Institutions</h2></div>
+    <p>The answer is that Venice was forced to grow up early. A normal medieval kingdom ran on land: king, nobles, peasants, bundled together. Venice had almost no land. Its ruling families grew rich on trade, ships, credit, and overseas concessions, and that produces an entirely different problem.</p>
+    <p>A merchant sending a ship to Alexandria needs enforceable contracts, standard weights, courts, credit, diplomatic protection, and some confidence that a rival cannot simply bribe the state to ruin him. The men who wrote Venice's rules were not an outside bureaucracy policing merchants. <em>They were merchants, writing rules for a game in which their own fortunes were at stake.</em> Their private wealth depended on the quality of their public institutions. It is hard to overstate how rare, and how clarifying, that alignment is.</p>
+    <p>So Venice became extraordinarily good at one specific thing: turning a recurring problem into a permanent institution. Ships got complicated, create maritime magistrates. Grain grew strategic, create grain officials. The books needed checking, create auditors. Plague arrived, invent the health magistracy, and with it quarantine. There was no Ministry of Everything. There was a widening ecosystem of narrow offices, each with its own mandate, its own tools, its own permissions, its own definition of success.</p>
+    <p>Any engineer building agentic systems will feel a shiver of recognition here. This is not one general agent doing everything. This is an orchestrator delegating to a research agent, a procurement agent, a scheduling agent, a compliance agent, a verification agent, each scoped, each least-privileged. The financial magistrate does not need permission to send mail. The research agent does not need permission to move money. A Venetian would grasp the principle before you finished the sentence.</p>
+  </section>
+
+  <figure class="plate reveal">
+    <img src="images/institutions.jpg" alt="Endless identical stone arches of a Venetian arcade receding one after another into grey mist.">
+    <figcaption>Bay after identical bay. <span>Venice answered every recurring problem with another narrow office.</span></figcaption>
+  </figure>
+
+  <section class="chapter reveal">
+    <div class="chapter-head"><span class="numeral">III</span><h2>Rialto Was an API Layer</h2></div>
+    <p>Cross the water in your mind to the market itself, and the analogy sharpens into something almost uncanny.</p>
+    <p>Medieval trade was chaos: different currencies, languages, legal systems, measures, jurisdictions, all colliding at once. Rialto did not abolish that complexity. It <em>encapsulated</em> it behind standard interfaces. Weights and measures were schemas. Notarial contracts were structured messages. Commercial courts were exception handling. Customs officials were the gateway. Merchant registries were identity and authentication. The public banks were the transaction layer. The state archives were persistent storage. Each magistracy was a service, and Rialto itself was the platform.</p>
+    <p>The genius was never the elimination of complexity, that is impossible. The genius was hiding it behind clean interfaces so that an entire city could trade at a scale no individual could hold in their head.</p>
+    <p>And the archive, the Venetian obsession with writing everything down, may be the deepest lesson of all. Officials rotated constantly; a man held an office for months and moved on. Normally that is fatal to institutional competence, because every newcomer must relearn the world. Venice solved it by refusing to let knowledge live inside people. Decisions, precedents, ledgers, diplomatic reports, all of it accumulated into a memory that outlived any officeholder.</p>
+    <p>Here the parallel becomes almost painful in its precision. A large language model is intrinsically ephemeral. It can be brilliant for thirty seconds and then vanish, taking everything with it. The human officeholder was ephemeral compute. The office was the persistent identity. The archive was long-term memory. <em>You do not want the state of your enterprise sitting precariously inside a context window.</em> Venice would put it in the archive. Who is this user, what have we already decided, what did we try last time, what have we promised; a king dies and takes the answers with him; a bureaucracy writes them down. That distinction is not a detail. It is the whole game.</p>
+  </section>
+
+  <figure class="plate reveal">
+    <img src="images/archive.jpg" alt="A Renaissance stone facade dissolving into its own broken reflection on the dark surface of a canal at dusk.">
+    <figcaption>What the water remembers, the Republic wrote down. <span>The office outlives the officeholder.</span></figcaption>
+  </figure>
+
+  <div class="pull reveal">
+    <span class="mark">&ldquo;</span>
+    <q>The genius was never the elimination of complexity. It was hiding it behind clean interfaces so a whole city could trade at a scale <em>no individual could hold in their head.</em></q>
+  </div>
+
+  <section class="chapter reveal">
+    <div class="chapter-head"><span class="numeral">IV</span><h2>Governance Is a Form of Intelligence</h2></div>
+    <p>There is a comfortable idea abroad right now that sufficient intelligence will simply dissolve the problem of coordination, that a smart enough system will not need governing. Venice suggests the opposite, and suggests it forcefully.</p>
+    <p><em>As the capability of individual actors rises, governance becomes more important, not less.</em> Venetian merchants were formidable autonomous agents. They crossed continents, borrowed fortunes, commanded ships, negotiated with sultans. And precisely because they were so powerful, the Republic wrapped them in protocol. The mature Venetian state was, in the end, a multi-agent system: powerful, partially self-interested agents operating under shared rules and a common, durable memory.</p>
+    <p>The Republic did not even pretend its patricians shared a single goal. The Corner family wanted what the Contarini did not. Merchants competed; factions formed; everyone chased money and status. Venice's constitution was an enormous, centuries-long attempt to make selfish local incentives produce a tolerable global outcome. Francis Fukuyama has spent a career arguing that the wealth of nations turns less on resources than on <em>state capacity</em>, the ability to build institutions that constrain the powerful. Venice is his thesis rendered in stone and water. And what is it, in the language of the moment, but the alignment problem? You do not need every agent to want the same thing if you can shape the environment so that bad behaviour is caught and cooperation is rewarded. That is mechanism design. Venice was doing it politically, five hundred years before the term existed.</p>
+    <p>Look at how the Republic handled a suspected fraud. The ideal was that no single magistrate was detective, prosecutor, judge, executioner, <em>and</em> accountant at once. Different bodies gathered the information, weighed the claim, authorised the action, and recorded what happened. Contrast the dangerous shape we keep building: the agent thinks, the agent decides, the agent executes, and then the same agent reports that the execution succeeded. The agent that tells you it wired fifty thousand euros should never be the sole authority confirming that fifty thousand euros actually moved. Venice called this institutional distrust. We call it least privilege, separation of duties, and independent verification. Same idea, older accent.</p>
+    <p>The Venetians even understood adversarial evaluation. They deliberately built <em>overlapping</em> jurisdictions, multiple bodies able to notice the same misconduct. To a modern efficiency consultant this looks like waste. Why pay for redundancy? Because if one office is captured, another may catch it, and everyone can be audited afterward. Instead of <em>agent to action</em>, you get <em>proposal, challenge, authorisation, execution, audit</em>. It costs more. It is slower. It is occasionally absurd. And it dramatically cuts the tail risk of the one catastrophic mistake, which is exactly the trade we are now, reluctantly, learning to make with agents that can touch the real world.</p>
+  </section>
+
+  <section class="chapter reveal">
+    <div class="chapter-head"><span class="numeral">V</span><h2>Who Watches the Watcher?</h2></div>
+    <p>And then there is the Council of Ten, the part that should make us uneasy.</p>
+    <p>Venice eventually created a small, secretive body with extraordinary powers to defend the state: to monitor the others, detect anomalies, suspend authority, investigate the compromised, escalate the dangerous. In our terms, a privileged supervisory agent. Useful, obviously useful. You want something watching the fleet.</p>
+    <p>But you have now built an agent with more power than the agents it polices, and Venice ran straight into the oldest question in political theory. <em>Who watches the watcher?</em> The Ten themselves had to be hedged with procedure and fought over for centuries. It is an AI-governance thought experiment written seven hundred years early, and we have not improved on the answer. We have merely arrived at the same question with faster hardware.</p>
+  </section>
+
+  <figure class="plate reveal">
+    <img src="images/council.jpg" alt="A narrow, dark side canal between tall shadowed buildings at dusk, a single distant lantern glowing through the fog.">
+    <figcaption>A single distant light. <span>Who watches the watcher?</span></figcaption>
+  </figure>
+
+  <section class="chapter reveal">
+    <div class="chapter-head"><span class="numeral">VI</span><h2>The View From the Canal</h2></div>
+    <p>So I sit here and read the landscape across the water like a systems diagram.</p>
+    <p>Ca' da Mosto, where I am staying, is an autonomous economic agent. The Grand Canal is the network. Rialto is the transaction platform. The Fabbriche Nuove opposite me are the governance and administrative services. The archives are persistent state, the magistracies are specialised agents, the councils are orchestration and authorisation, and the Doge is the executive interface with deliberately restricted permissions. Over all of it, the laws and constitution of the Republic, runs the protocol.</p>
+    <p>That is why Venice survived for the better part of a thousand years through wars, plagues, financial panics, incompetent doges, and the ordinary failures of ordinary men. The system did not require every node to be brilliant. The architecture carried an intelligence that no single participant possessed.</p>
+    <p>We keep asking how intelligent we can make the agent. Venice asks a better question: <em>how intelligent can we make the system in which the agents operate?</em> The next leap in this technology may look far less like an omnipotent artificial Doge and far more like an artificial Venetian Republic, many capable agents, narrow mandates, explicit permissions, durable memory, standard interfaces, independent verification, adversarial checks, escalation paths, and enough friction that no single hallucination can ever become state policy.</p>
+    <p>The wealth of Venice was never really that Venetians were good at trading. It was that they built a machine that let a whole city trade at a scale no person could manage alone. That is the genuinely modern thing you feel standing at the Rialto: not a market, but an operating system for collective action, running for centuries on human hardware.</p>
+    <p>We are about to build the same thing out of silicon. The question is whether we remember what it took to make it hold. Because in the end, governance is not the tax we pay on intelligence.</p>
+  </section>
+
+  <div class="pull reveal">
+    <q>Governance is not the tax we pay on intelligence. Governance <em>is</em> a form of intelligence. And it is the form we have been least willing to build.</q>
+  </div>
+
+  <figure class="plate reveal">
+    <img src="images/closing.jpg" alt="First light on the Grand Canal, mist rising off perfectly still water, silhouetted domes and merchant houses mirrored below.">
+    <figcaption>First light on the Grand Canal. <span>The architecture carried an intelligence no single citizen possessed.</span></figcaption>
+  </figure>
+
+</main>
+
+<footer>
+  <div class="foot-inner reveal">
+    <div class="sig">Noah Raford</div>
+    <p>Pragmatic futurist. Written from Ca' da Mosto, on the Grand Canal, Venice.</p>
+    <p>If the argument holds, the next hard problem in artificial intelligence is not a smarter model. It is a better republic. <a href="#top">Return to the top &uarr;</a></p>
+    <div class="colophon">
+      Set in Libre Caslon Display and Spectral. Imagery art-directed in the register of J.M.W. Turner: Venice at first light, fog on the water, no people, no boats.
+    </div>
+  </div>
+</footer>
+
+<script>
+// reading progress
+const bar=document.getElementById('progress');
+const onScroll=()=>{const h=document.documentElement;
+  const p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+  bar.style.width=(p*100)+'%';};
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+// scroll reveals
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},
+  {threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// hide scroll cue once moving
+addEventListener('scroll',()=>{const c=document.querySelector('.scrollcue');
+  if(c&&scrollY>60){c.style.opacity='0';}},{passive:true,once:true});
+</script>
+</body>
+</html>
