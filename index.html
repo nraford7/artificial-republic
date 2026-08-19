@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Eight Lessons Ancient Venice Teaches Agentic Engineering — Noah Raford</title>
+<title>Eight Lessons From Ancient Venice for Agentic Engineering — Noah Raford</title>
 <meta name="description" content="Eight governance lessons from the Venetian Republic, mapped directly to the design of multi-agent AI systems.">
 <meta name="author" content="Noah Raford">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Eight Lessons Ancient Venice Teaches Agentic Engineering">
-<meta property="og:description" content="Venice solved the multi-agent coordination problem in the thirteenth century. Here are eight of its answers.">
+<meta property="og:title" content="Eight Lessons From Ancient Venice for Agentic Engineering">
+<meta property="og:description" content="Venice solved the multi-agent coordination problem centuries ago. Here are eight of its answers.">
 <meta property="og:image" content="images/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,6 +104,13 @@ em{font-style:italic;color:var(--mist)}
 .pull q{font-family:var(--display);quotes:none;font-size:clamp(1.5rem,1rem + 2.4vw,2.6rem);
   line-height:1.16;letter-spacing:-.01em;color:var(--mist)}
 .pull q em{color:var(--gold);font-style:italic}
+/* lesson summary table */
+.lesson-table{width:100%;border-collapse:collapse;margin:clamp(2rem,5vh,3rem) 0;font-size:.88rem;line-height:1.5}
+.lesson-table td{padding:.6rem .8rem;vertical-align:top;border-bottom:1px solid var(--rule);color:var(--mist-soft)}
+.lesson-table .lt-num{font-family:var(--display);color:var(--gold-deep);width:2rem;text-align:right;padding-right:1rem;opacity:.7}
+.lesson-table .lt-name{font-weight:500;color:var(--mist);white-space:nowrap;padding-right:1.2rem}
+@media(max-width:600px){.lesson-table .lt-name{white-space:normal}}
+
 .pull .mark{display:block;font-family:var(--display);color:var(--gold-deep);font-size:3.4rem;
   line-height:0;margin-bottom:1.4rem;opacity:.7}
 
@@ -131,8 +138,8 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);backgro
   <div class="hero-img"><img src="images/hero.jpg" alt="The Fabbriche Nuove receding into dawn fog along the Grand Canal."></div>
   <div class="hero-inner">
     <p class="eyebrow">An essay</p>
-    <h1>Eight Lessons Ancient Venice Teaches Agentic Engineering</h1>
-    <p class="dek">Venice solved the multi-agent coordination problem in the thirteenth century. Here are eight of its answers.</p>
+    <h1>Eight Lessons From Ancient Venice for Agentic Engineering</h1>
+    <p class="dek">Venice solved the multi-agent coordination problem centuries ago. Here are eight of its answers.</p>
     <p class="byline">By <b>Noah Raford</b></p>
   </div>
   <div class="scrollcue">Scroll</div>
@@ -181,18 +188,31 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);backgro
     <p class="lede">Everyone building multi-agent AI systems is solving a problem the Venetian Republic solved in the thirteenth century: how do you coordinate autonomous agents operating in ambiguous environments, at distance, without the ability to supervise them directly?</p>
     <p>Venice had no choice but to answer this question well. A land-based kingdom could survive mediocre institutions: tax the peasants, garrison the borders, hope for the best. A maritime republic could not. A single voyage around 1250 might involve twenty investors, borrowed capital, multiple merchants owning different cargo, a captain under contractual obligation, Republic-imposed cargo restrictions, customs duties at foreign ports, liability for wreck and piracy, and resolution timelines measured in months. Every link in that chain was a delegation of authority to someone operating beyond line of sight. The men writing the rules were themselves merchants with fortunes at risk. Private wealth depended on public institutional quality.</p>
     <p>That pressure, sustained across centuries, produced a governance architecture that ran for over a thousand years on the same unreliable hardware we have always had: human beings with interests, blind spots, and the occasional urge to commit fraud. Here are eight of Venice's answers, and what they mean for anyone building agentic systems today.</p>
+
+    <table class="lesson-table">
+      <tr><td class="lt-num">1</td><td class="lt-name">Distribute authority</td><td>Strip unilateral power from any single actor, however capable</td></tr>
+      <tr><td class="lt-num">2</td><td class="lt-name">Narrow the mandate</td><td>Specialized agents with scoped permissions outperform generalists</td></tr>
+      <tr><td class="lt-num">3</td><td class="lt-name">Separate reasoning, execution, verification</td><td>The producer of work must never be its sole evaluator</td></tr>
+      <tr><td class="lt-num">4</td><td class="lt-name">Build persistent memory</td><td>The system must remember what individual agents forget</td></tr>
+      <tr><td class="lt-num">5</td><td class="lt-name">Overlap oversight on purpose</td><td>Redundancy is a security architecture, not waste</td></tr>
+      <tr><td class="lt-num">6</td><td class="lt-name">Align incentives structurally</td><td>Bind an agent's success metric to the outcome it governs</td></tr>
+      <tr><td class="lt-num">7</td><td class="lt-name">Encode rules in architecture</td><td>Prompts are suggestions; permissions are constraints</td></tr>
+      <tr><td class="lt-num">8</td><td class="lt-name">Supervise the supervisors</td><td>Oversight agents are necessary and inherently dangerous</td></tr>
+    </table>
   </div>
 
   <figure class="plate plate-short reveal"><img src="images/steps.jpg" alt="Venetian stone steps descending into fog-covered canal water."></figure>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">1</span><h2>Hollow the Executive</h2></div>
-    <p>The Doge of Venice was magnificent and powerless. Over generations, the Republic systematically stripped the office of unilateral authority. By the fourteenth century, the Doge could not open his own mail without witnesses, could not meet foreign diplomats alone, and could not leave the city without permission. The electoral procedure, alternating rounds of lot and vote across multiple stages, was designed to make the outcome impossible to rig. The Doge was a symbol. The system ran the Republic.</p>
+    <div class="chapter-head"><span class="numeral">1</span><h2>Distribute Authority</h2></div>
+    <p>The most dangerous architecture is one where a single actor can reason, decide, execute, and verify without external check. Venice learned this through generations of doges who tried to become kings.</p>
+    <p>The Doge was magnificent and powerless. Over generations, the Republic systematically stripped the office of unilateral authority. By the fourteenth century, the Doge could not open his own mail without witnesses, could not meet foreign diplomats alone, and could not leave the city without permission. The electoral procedure, alternating rounds of lot and vote across multiple stages, was designed to make the outcome impossible to rig. The Doge was a symbol. The system ran the Republic.</p>
     <p class="ai-impl"><strong>For agentic AI:</strong> The first instinct in system design is to build a single orchestrator with root access, one model that reasons, delegates, executes, and evaluates. Venice learned that concentrating power in a single node, however capable, creates a single point of capture. The Doge architecture says: make your central coordinator visible, prestigious even, but strip it of unilateral execution rights. No single agent should be able to reason about a problem, decide the solution, execute it, and confirm its own success. That is a prayer, not an architecture.</p>
   </section>
 
   <section class="chapter reveal">
     <div class="chapter-head"><span class="numeral">2</span><h2>Narrow the Mandate</h2></div>
+    <p>Every agent should do one thing well and lack the authority to do anything else. Broad mandates create broad failure modes.</p>
     <p>Venice governed through dozens of narrow magistracies, each with a specific domain: taxation, grain supply, salt, the regulation of maritime trade, shipbuilding, foreign commerce, market standards, sanitation, canals, customs, public health, espionage, state security. Each magistracy had its own mandate, its own tools, its own permissions, and no authority beyond them. The grain officials could not regulate trade. The customs officers could not set tax policy.</p>
     <p class="ai-impl"><strong>For agentic AI:</strong> Specialized agents with scoped permissions outperform general-purpose agents given broad access. This is a competence argument as much as a safety one. A magistrate who spent years understanding the salt trade made better salt decisions than a generalist council ever could. The same holds for agents. An agent with a narrow mandate, a constrained toolset, and deep context on its domain will produce better outputs than an all-access agent trying to reason across everything. Scope the permissions. Scope the tools. Scope the context window. Breadth is the enemy of judgment.</p>
   </section>
@@ -200,13 +220,15 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);backgro
   <figure class="plate plate-short reveal"><img src="images/rio.jpg" alt="A narrow Venetian side canal between tall palazzo walls, fog filling the passage."></figure>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">3</span><h2>Separate Reasoning from Execution from Verification</h2></div>
+    <div class="chapter-head"><span class="numeral">3</span><h2>Separate Reasoning, Execution, and Verification</h2></div>
+    <p>The agent that plans the work should never be the same agent that executes it, and neither should be the agent that evaluates the result.</p>
     <p>No single Venetian body served as detective, prosecutor, judge, executioner, and accountant. Proposals moved through distinct phases: investigation, deliberation, authorization, execution, and audit. Different institutions handled each step. The body that identified a problem did not decide the remedy. The body that decided the remedy did not carry it out. And the body that carried it out did not verify the result.</p>
     <p class="ai-impl"><strong>For agentic AI:</strong> In most multi-agent systems today, a single model reasons about a task, generates a plan, executes steps, and self-evaluates the output. This is the equivalent of asking a Venetian magistrate to investigate himself, render judgment, carry out the sentence, and then audit his own performance. The Venetian separation maps directly: one agent for analysis and planning, a different agent for execution, a third for evaluation. As Paul Christiano and others working on AI alignment have argued, the ability to verify work must be architecturally independent from the ability to produce it. Otherwise you are building a confident liar.</p>
   </section>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">4</span><h2>Build the Archive, Not the Officer</h2></div>
+    <div class="chapter-head"><span class="numeral">4</span><h2>Build Persistent Memory</h2></div>
+    <p>Institutional knowledge must live in the system, not inside any individual agent. When an agent's context disappears, the system should still remember what was decided and why.</p>
     <p>Venetian ambassadors were required to produce <em>relazioni</em>: formal end-of-mission reports documenting everything they had learned about a foreign court. Its rulers, its finances, its military capacity, its internal politics, its vulnerabilities. These reports were filed, indexed, and preserved. When a new ambassador departed for Constantinople, they did not start from zero. They read every <em>relazione</em> their predecessors had written. The institution remembered what individual officers forgot. The archive outlived the officer.</p>
     <p class="ai-impl"><strong>For agentic AI:</strong> Most agent architectures treat compute as ephemeral. An agent reasons through a problem, produces an output, and the reasoning vanishes. The next time a similar problem arrives, the system starts from scratch. Venice's <em>relazioni</em> system is the argument for persistent memory: structured, indexed, retrievable, independent of any single agent's context window. Put simply: if your system cannot learn from what it did last Tuesday, it is a series of expensive one-night stands with the same problem.</p>
   </section>
@@ -217,7 +239,8 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);backgro
   </div>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">5</span><h2>Overlap Jurisdictions on Purpose</h2></div>
+    <div class="chapter-head"><span class="numeral">5</span><h2>Overlap Oversight on Purpose</h2></div>
+    <p>If only one observer can catch a failure, the system is fragile. Redundant verification costs more and catches what single-point oversight misses.</p>
     <p>Venice deliberately gave multiple bodies the ability to notice the same misconduct. Jurisdictions overlapped by design, a security architecture disguised as administrative sprawl. If the salt magistracy was corrupt, the customs officials might catch it. If the customs officials were captured, the auditors behind them might notice. Redundancy meant that no single compromised node could go undetected.</p>
     <p class="ai-impl"><strong>For agentic AI:</strong> Redundancy in supervision looks like waste until a single point of failure destroys you. In agentic systems, this translates to adversarial evaluation: having multiple independent models assess the same output, with the ability to flag disagreements. The instinct to deduplicate, to give each problem exactly one evaluator, is an efficiency argument that trades away the very property that makes systems trustworthy. Venice paid for overlapping magistracies in administrative overhead. The return was a republic that lasted longer than any other in European history. In agent design, the equivalent cost is extra inference calls. The question is whether you can afford the alternative.</p>
   </section>
@@ -225,13 +248,15 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);backgro
   <figure class="plate plate-short reveal"><img src="images/reflection.jpg" alt="The Grand Canal at dawn, distant domes through fog, golden light on still water."></figure>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">6</span><h2>Make the Governors Shareholders</h2></div>
+    <div class="chapter-head"><span class="numeral">6</span><h2>Align Incentives Structurally</h2></div>
+    <p>Telling an agent to care about the right outcome is a suggestion. Designing the system so the agent's success metric is bound to the right outcome is a constraint. Build the constraint.</p>
     <p>The Serrata of 1297 restricted membership in the Great Council to a hereditary patriciate, several hundred families who became, in effect, shareholders in the Republic. Undemocratic, certainly. But it solved an alignment problem that democratic and autocratic systems both struggle with: the people writing the rules had their own wealth bound to the system those rules governed. A patrician who passed bad trade regulation would watch his own ventures suffer under it. As Francis Fukuyama argues in <em>The Origins of Political Order</em>, Venice's longevity owed much to this structural alignment between governing class and institutional quality. The incentive was financial, not rhetorical.</p>
     <p class="ai-impl"><strong>For agentic AI:</strong> Alignment in AI is usually discussed as a prompt-level or training-level concern: tell the model what to care about and hope it complies. Venice suggests a different approach: structural incentive alignment. Design the system so that an agent's success metric is bound to the outcome it governs. If an agent manages a pipeline, measure it on pipeline health, not task completion. If an agent evaluates code quality, score it on the downstream defect rate, not the number of reviews performed. Rhetoric is a suggestion. Architecture is a constraint. Venice bet on the constraint.</p>
   </section>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">7</span><h2>Encode Rules in Architecture, Not Instructions</h2></div>
+    <div class="chapter-head"><span class="numeral">7</span><h2>Encode Rules in Architecture</h2></div>
+    <p>Rules that agents can choose to ignore are suggestions. Rules encoded in the system's permission structure are constraints. Every rule that matters belongs in the second category.</p>
     <p>Venetian governance rested on constitutional constraints, on structure rather than trust. The Doge's impotence was structurally enforced: he lacked the tools to act unilaterally even if he wanted to. Magistrates could not exceed their jurisdictions because the system gave them no means to do so. The electoral mechanism was a procedure with physical lottery balls, locked rooms, and witnesses at every stage. Rules lived in process and infrastructure, in stone and procedure.</p>
     <p class="ai-impl"><strong>For agentic AI:</strong> A prompt is a suggestion. A system permission is a constraint. When an agent's instructions say "do not access the production database," that is a hope. When the agent's API credentials do not include production database access, that is a guarantee. Venice understood the difference between advisory norms and constitutional constraints. Most agent systems today rely overwhelmingly on advisory norms: system prompts, guidelines, guardrails that exist as text the model can choose to interpret flexibly. The lesson: every rule that matters should be encoded in the system architecture (permissions, tool access, API scoping). Prompts are what you tell an agent to do. Permissions are what you allow an agent to do. Build for the gap between them.</p>
   </section>
@@ -239,7 +264,8 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);backgro
   <figure class="plate plate-short reveal"><img src="images/council.jpg" alt="A narrow, dark side canal at dusk, a single distant lantern."></figure>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">8</span><h2>Watch the Watchers (and Accept That You Can't Fully)</h2></div>
+    <div class="chapter-head"><span class="numeral">8</span><h2>Supervise the Supervisors</h2></div>
+    <p>Every system needs oversight agents, and every oversight agent is itself a risk. This recursion never fully resolves. Design for it anyway.</p>
     <p>The Council of Ten held extraordinary powers: surveillance, investigation, suspension of officials, emergency action. Venice created it because someone had to watch for systemic threats that no individual magistracy would detect. And yet the Council itself became the most dangerous institution in the Republic. Concentrated supervisory power, the Venetians discovered, is both necessary and inherently risky. The watchers need watchers, and at some point the recursion has to stop.</p>
     <p class="ai-impl"><strong>For agentic AI:</strong> Every multi-agent system needs a supervisory layer, something that monitors for cascading failures, detects anomalies, and can intervene. This is the Council of Ten pattern: an agent (or set of agents) with elevated privileges and broad visibility. The danger is identical to Venice's. A supervisory agent with the power to override other agents is also the agent most capable of causing catastrophic damage if it malfunctions or is compromised. Stuart Russell's work on AI safety circles this problem repeatedly: the more capable and autonomous the supervisor, the higher the stakes of supervisory failure. Venice managed it through term limits, mandatory rotation, and overlapping oversight from other bodies. In agent systems, the equivalents are audit logs, time-bounded elevated permissions, and multiple independent supervisory agents that monitor each other. The honest position is that the recursion of "who watches the watcher" eventually bottoms out in a human being who is paying attention. That may be the most Venetian lesson of all.</p>
   </section>
