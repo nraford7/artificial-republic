@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Agentic Republic of Venice — Noah Raford</title>
-<meta name="description" content="What Venetian governance teaches us about building AI in a messy world. An essay by Noah Raford.">
+<title>Eight Lessons Ancient Venice Teaches Agentic Engineering — Noah Raford</title>
+<meta name="description" content="Eight governance lessons from the Venetian Republic, mapped directly to the design of multi-agent AI systems.">
 <meta name="author" content="Noah Raford">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Agentic Republic of Venice">
-<meta property="og:description" content="What Venetian governance teaches us about building AI in a messy world.">
+<meta property="og:title" content="Eight Lessons Ancient Venice Teaches Agentic Engineering">
+<meta property="og:description" content="Venice solved the multi-agent coordination problem in the thirteenth century. Here are eight of its answers.">
 <meta property="og:image" content="images/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:oklch(0.17 0.014 205);--ink-deep:oklch(0.13 0.013 205);--panel:oklch(0.21 0.015 205);
+  --ink:oklch(0.17 0.014 205);--ink-deep:oklch(0.13 0.013 205);
   --mist:oklch(0.92 0.012 85);--mist-soft:oklch(0.80 0.012 90);--muted:oklch(0.63 0.012 200);
   --gold:oklch(0.76 0.10 78);--gold-deep:oklch(0.66 0.10 74);--rule:oklch(0.34 0.012 205);
   --serif:"Spectral",Georgia,serif;--display:"Libre Caslon Display","Spectral",Georgia,serif;
@@ -31,8 +31,6 @@ body::after{content:"";position:fixed;inset:0;z-index:9;pointer-events:none;opac
   mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 img{display:block;max-width:100%;height:auto}
-
-/* progress */
 .progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:20;
   background:linear-gradient(90deg,var(--gold-deep),var(--gold));box-shadow:0 0 12px var(--gold);transition:width .12s linear}
 
@@ -48,11 +46,13 @@ img{display:block;max-width:100%;height:auto}
 .eyebrow{font-family:var(--serif);font-style:italic;color:var(--gold);
   font-size:clamp(.95rem,.9rem + .3vw,1.15rem);letter-spacing:.02em;margin-bottom:1.1rem;
   opacity:0;animation:rise 1s ease-out .2s forwards}
-h1{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,1.2rem + 6.4vw,7rem);
+h1{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,1rem + 5.5vw,5.8rem);
   line-height:.94;letter-spacing:-.015em;color:var(--mist);
-  text-shadow:0 2px 40px oklch(0.10 0.02 205/.6);opacity:0;animation:rise 1.15s cubic-bezier(.16,1,.3,1) .34s forwards}
-.dek{font-family:var(--display);font-size:clamp(1.15rem,.9rem + 1vw,1.75rem);line-height:1.32;
-  color:var(--mist-soft);max-width:33ch;margin-top:1.5rem;opacity:0;animation:rise 1.15s cubic-bezier(.16,1,.3,1) .56s forwards}
+  text-shadow:0 2px 40px oklch(0.10 0.02 205/.6);max-width:18ch;
+  opacity:0;animation:rise 1.15s cubic-bezier(.16,1,.3,1) .34s forwards}
+.dek{font-family:var(--display);font-size:clamp(1.05rem,.85rem + .8vw,1.5rem);line-height:1.32;
+  color:var(--mist-soft);max-width:36ch;margin-top:1.5rem;
+  opacity:0;animation:rise 1.15s cubic-bezier(.16,1,.3,1) .56s forwards}
 .byline{margin-top:2.4rem;font-size:.95rem;color:var(--muted);letter-spacing:.03em;
   opacity:0;animation:rise 1.15s ease-out .78s forwards}
 .byline b{color:var(--mist-soft);font-weight:500}
@@ -62,75 +62,46 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,1.2rem + 6.
   opacity:0;animation:rise 1s ease-out 1.1s forwards,float 2.6s ease-in-out 1.6s infinite}
 @keyframes float{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
 
-/* ---------- length picker ---------- */
+/* picker */
 .length-picker{position:sticky;top:0;z-index:15;background:var(--ink-deep);
-  border-bottom:1px solid var(--rule);backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px)}
+  border-bottom:1px solid var(--rule);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .picker-inner{max-width:72rem;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:0;
   padding:0 clamp(1.4rem,5vw,2rem)}
-.picker-title{font-family:var(--display);font-size:.88rem;color:var(--mist-soft);
-  letter-spacing:.01em;white-space:nowrap;margin-right:auto;padding:.9rem 0}
-.picker-author{font-family:var(--serif);font-size:.82rem;color:var(--muted);
-  white-space:nowrap;margin-left:auto;padding:.9rem 0;letter-spacing:.02em}
-@media(max-width:600px){.picker-title,.picker-author{display:none}}
-.pick{background:none;border:none;border-bottom:2px solid transparent;
-  font-family:var(--serif);font-size:.88rem;color:var(--muted);padding:.9rem 1.2rem;
-  cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap;letter-spacing:.02em}
+.pick{background:none;border:none;border-bottom:2px solid transparent;font-family:var(--serif);
+  font-size:.88rem;color:var(--muted);padding:.9rem 1.2rem;cursor:pointer;
+  transition:color .2s,border-color .2s;white-space:nowrap;letter-spacing:.02em}
 .pick:hover{color:var(--mist-soft)}
 .pick.active{color:var(--gold);border-bottom-color:var(--gold)}
-@media(max-width:600px){.pick{font-size:.78rem;padding:.7rem .7rem}}
 
-/* ---------- reading column ---------- */
+/* reading column */
 .essay{max-width:var(--measure);margin:0 auto;
   padding:clamp(4rem,12vh,8rem) clamp(1.4rem,5vw,2rem) 2rem;overflow:visible;position:relative}
-
-/* versions */
 .version{display:none;opacity:0;transition:opacity .35s ease}
 .version.active{display:block;opacity:1}
 .version.fading{opacity:0}
-
-.chapter{margin:clamp(3.4rem,9vh,6rem) 0}
-.chapter-head{display:flex;align-items:baseline;gap:1.1rem;margin-bottom:1.9rem}
-.numeral{font-family:var(--display);font-size:clamp(2.6rem,1.4rem + 4vw,4.4rem);line-height:.8;
-  color:transparent;-webkit-text-stroke:1.1px var(--gold-deep);flex:0 0 auto;opacity:.9}
-.chapter h2{font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,1.2rem + 2vw,2.7rem);
-  line-height:1.08;letter-spacing:-.01em;color:var(--mist)}
+.chapter{margin:clamp(2.6rem,6vh,4rem) 0}
+.chapter-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.4rem}
+.numeral{font-family:var(--display);font-size:clamp(1.8rem,1rem + 2.5vw,2.8rem);line-height:.8;
+  color:transparent;-webkit-text-stroke:1px var(--gold-deep);flex:0 0 auto;opacity:.8}
+.chapter h2{font-family:var(--display);font-weight:400;font-size:clamp(1.4rem,1rem + 1.5vw,2rem);
+  line-height:1.12;letter-spacing:-.01em;color:var(--mist)}
 .essay p{margin:0 0 1.4rem}
-.essay p + p{text-indent:0}
 .lede{font-size:1.08em}
 .lede::first-letter{font-family:var(--display);float:left;color:var(--gold);
   font-size:4.9em;line-height:.72;padding:.06em .12em 0 0;margin-top:.02em}
 em{font-style:italic;color:var(--mist)}
 .intro p{color:var(--mist-soft)}
-
-/* margin notes */
-.note{font-family:var(--serif);font-size:.82rem;line-height:1.52;color:var(--muted);
-  border-top:1px solid var(--rule);padding-top:.7rem;margin-bottom:1.4rem}
-.note strong{display:block;font-family:var(--display);font-size:.88rem;color:var(--gold-deep);
-  font-weight:400;margin-bottom:.3rem;letter-spacing:.01em}
-.note img{width:3.4rem;height:3.4rem;border-radius:50%;object-fit:cover;
-  margin-bottom:.5rem;border:1px solid var(--rule);opacity:.8;float:left;margin-right:.7rem}
-@media(min-width:1200px){
-  .note-r{float:right;clear:right;width:13rem;margin-right:-16rem;margin-top:.2rem}
-  .note-l{float:left;clear:left;width:13rem;margin-left:-16rem;margin-top:.2rem}
-}
-@media(max-width:1199px){.note{display:none}}
+.ai-impl{color:var(--mist-soft)}
 
 /* plates */
 .plate{position:relative;width:100vw;left:50%;margin-left:-50vw;
   margin-top:clamp(3rem,8vh,5rem);margin-bottom:clamp(3rem,8vh,5rem)}
 .plate img{width:100%;height:clamp(60vh,66vh,82vh);object-fit:cover}
-.plate figcaption{position:absolute;left:0;right:0;bottom:0;
-  padding:clamp(2rem,6vh,4rem) clamp(1.4rem,5vw,4rem) clamp(1.3rem,3vh,2rem);
-  background:linear-gradient(to top,oklch(0.11 0.013 205/.82),transparent);
-  font-family:var(--display);font-size:clamp(1.05rem,.9rem + .6vw,1.5rem);line-height:1.32;
-  color:var(--mist);max-width:46rem}
-.plate figcaption span{color:var(--muted)}
 .plate-short img{height:clamp(30vh,36vh,44vh)}
 
 /* pull quote */
-.pull{max-width:52rem;margin:clamp(3.6rem,10vh,7rem) auto;padding:0 clamp(1.4rem,5vw,2rem);text-align:center}
-.pull q{font-family:var(--display);quotes:none;font-size:clamp(1.6rem,1.1rem + 2.6vw,3rem);
+.pull{max-width:52rem;margin:clamp(3rem,8vh,5rem) auto;padding:0 clamp(1.4rem,5vw,2rem);text-align:center}
+.pull q{font-family:var(--display);quotes:none;font-size:clamp(1.5rem,1rem + 2.4vw,2.6rem);
   line-height:1.16;letter-spacing:-.01em;color:var(--mist)}
 .pull q em{color:var(--gold);font-style:italic}
 .pull .mark{display:block;font-family:var(--display);color:var(--gold-deep);font-size:3.4rem;
@@ -146,25 +117,6 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);backgro
 .foot-inner a:hover{color:var(--mist)}
 .colophon{margin-top:2rem;font-size:.82rem;color:var(--rule);line-height:1.7}
 
-/* lists */
-.essay ul{list-style:none;margin:0 0 1.4rem;padding:0}
-.essay ul li{position:relative;padding-left:1.2rem;margin-bottom:.5rem}
-.essay ul li::before{content:"\2022";position:absolute;left:0;color:var(--gold-deep)}
-
-/* comparison table */
-.dim-table{width:133%;margin-left:-16.5%;border-collapse:collapse;margin-top:clamp(2rem,5vh,3.6rem);margin-bottom:clamp(2rem,5vh,3.6rem);font-size:.92rem;line-height:1.56}
-@media(max-width:900px){.dim-table{width:100%;margin-left:0}}
-.dim-table th,.dim-table td{padding:.9rem 1rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
-.dim-table thead th{font-family:var(--display);font-weight:400;color:var(--gold);font-size:.78rem;
-  letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--gold-deep);padding-bottom:.6rem}
-.dim-table .dim-name{font-family:var(--display);font-size:1.05rem;color:var(--mist);font-weight:400;white-space:nowrap;padding-right:1.4rem}
-.dim-table td{color:var(--mist-soft)}
-@media(max-width:700px){.dim-table{font-size:.82rem}.dim-table th,.dim-table td{padding:.6rem .5rem;display:block;width:100%}
-  .dim-table thead{display:none}.dim-table tr{border-bottom:1px solid var(--rule);padding:.8rem 0;display:block}
-  .dim-table .dim-name{font-size:.95rem;border-bottom:none;padding-bottom:0}
-  .dim-table td::before{content:attr(data-label);display:block;font-family:var(--display);font-size:.72rem;
-    color:var(--gold-deep);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem}}
-
 /* reveal */
 .reveal{opacity:0;transform:translateY(30px);
   transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)}
@@ -176,12 +128,12 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);backgro
 <div class="progress" id="progress"></div>
 
 <header class="hero" id="top">
-  <div class="hero-img"><img src="images/hero.jpg" alt="The long, low arcade of the Fabbriche Nuove receding into dawn fog along the Grand Canal."></div>
+  <div class="hero-img"><img src="images/hero.jpg" alt="The Fabbriche Nuove receding into dawn fog along the Grand Canal."></div>
   <div class="hero-inner">
     <p class="eyebrow">An essay</p>
-    <h1>The Agentic<br>Republic<br>of Venice</h1>
-    <p class="dek">What Venetian governance teaches us about building AI in a messy world.</p>
-    <p class="byline">By <b>Noah Raford</b> &nbsp;&middot;&nbsp; Written on the Grand Canal, Venice</p>
+    <h1>Eight Lessons Ancient Venice Teaches Agentic Engineering</h1>
+    <p class="dek">Venice solved the multi-agent coordination problem in the thirteenth century. Here are eight of its answers.</p>
+    <p class="byline">By <b>Noah Raford</b></p>
   </div>
   <div class="scrollcue">Scroll</div>
 </header>
@@ -189,252 +141,120 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);backgro
 <nav class="length-picker" id="picker">
   <div class="picker-inner">
     <button class="pick" data-v="tldr">TL;DR</button>
-    <button class="pick" data-v="1min">1 minute</button>
-    <button class="pick active" data-v="3min">3 minutes</button>
-    <button class="pick" data-v="full">Full essay</button>
+    <button class="pick" data-v="summary">Summary</button>
+    <button class="pick active" data-v="full">Full essay</button>
   </div>
 </nav>
 
 <main class="essay">
 
-<!-- ==================== TL;DR ==================== -->
+<!-- ===== TL;DR ===== -->
 <article class="version" id="v-tldr">
   <div class="intro reveal">
-    <p class="lede">Systems respond to their environment. Venice &mdash; a republic whose wealth sailed on vessels it could not supervise &mdash; built a governance architecture of extraordinary sophistication to survive that fact.</p>
-    <p>Its solutions were structural: narrow mandates, overlapping jurisdictions, persistent memory, constitutional constraints, and a head of state deliberately hollowed of real power.</p>
-    <p>These mechanisms map, dimension by dimension, onto the design problems of multi-agent AI systems &mdash; distributed autonomous actors, incomplete information, competing interests, stakes too high for casual governance.</p>
-    <p>Venice&rsquo;s central lesson, tested across a thousand years: the intelligence that matters lives in the system the agents operate within.</p>
+    <p class="lede">Venice, a maritime republic that could not supervise its agents at distance, built a governance architecture that ran for a thousand years on unreliable human hardware. Its eight core patterns (hollow the executive, narrow the mandate, separate reasoning from execution from verification, build persistent memory, overlap jurisdictions, align incentives structurally, encode rules in architecture, watch the watchers) map directly onto the design requirements of multi-agent AI systems. The lesson: invest in the system architecture, not the individual model.</p>
   </div>
 </article>
 
-<!-- ==================== 1 MINUTE ==================== -->
-<article class="version" id="v-1min">
+<!-- ===== SUMMARY ===== -->
+<article class="version" id="v-summary">
   <div class="intro reveal">
-    <aside class="note note-r"><img src="images/concepts/c-compass.jpg" alt=""><strong>Maritime vs. feudal</strong>Land-based kingdoms could afford mediocre institutions. Venice&rsquo;s wealth moved across oceans, beyond supervision. The sea forced institutional invention.</aside>
-    <p class="lede">Systems respond to their environment. Their institutional architectures are shaped by the pressures they must survive. Venice, a republic with almost no land, drew its wealth through maritime trade &mdash; ventures that could sink on any given voyage, managed by agents operating autonomously in distant ports with no way to supervise them in real time. That environment forced institutional invention at a depth Europe&rsquo;s feudal monarchies could not match.</p>
-    <aside class="note note-l"><img src="images/concepts/c-doge.jpg" alt=""><strong>The Hollowed Doge</strong>Venice&rsquo;s head of state: magnificent in ceremony, powerless in practice. The most visible leader was, by design, the most constrained.</aside>
-    <p>What Venice built was governance through institutional distrust. The Doge was ceremonially supreme and almost powerless &mdash; his election required alternating rounds of lottery and vote specifically designed to prevent any faction from capturing the outcome. Below him, narrow magistracies governed taxation, grain, salt, trade, and shipbuilding, each with precisely defined mandates and no authority to reach beyond them. Overlapping jurisdictions created redundancy as a security mechanism. Persistent archives &mdash; diplomatic reports cross-referenced across decades &mdash; gave the system memory that outlived any individual officer. The patriciate&rsquo;s personal fortunes were inseparable from institutional quality, aligning private incentives with public outcomes through the architecture itself.</p>
+    <p class="lede">Venice faced the same coordination problem AI engineers face today: autonomous agents operating in ambiguous environments, at distance, beyond direct supervision. Maritime trade forced institutional invention because the alternative was total loss. The governance architecture they built lasted a thousand years. Eight of its patterns translate directly.</p>
   </div>
   <section class="chapter reveal">
-    <aside class="note note-r"><img src="images/concepts/c-network.jpg" alt=""><strong>Not metaphor</strong>The constraints Venice faced are structurally identical to those of multi-agent AI design. The parallel runs across eight specific dimensions.</aside>
-    <p>The structural parallel to agentic AI is not metaphorical. The constraints Venice faced &mdash; distributed autonomous actors, incomplete information, competing interests, high stakes, trust across distance without direct supervision &mdash; are the constraints of multi-agent system design. Venice&rsquo;s solutions map onto eight specific dimensions:</p>
-    <ul>
-      <li><strong>Shared context</strong> &mdash; persistent, structured state that outlives any single operation</li>
-      <li><strong>Delegation</strong> &mdash; narrow mandates as a safety mechanism, not a limitation on capability</li>
-      <li><strong>Orchestration</strong> &mdash; different bodies for different classes of decision, with clear escalation paths</li>
-      <li><strong>Trust and verification</strong> &mdash; redundant oversight that assumes failure and contains it</li>
-      <li><strong>Data quality</strong> &mdash; provenance and cross-referencing, not unchecked inputs</li>
-      <li><strong>Goal alignment</strong> &mdash; incentive structures encoded in architecture, not in instructions</li>
-      <li><strong>Rules and constraints</strong> &mdash; constitutional permissions, not prompt-level suggestions</li>
-      <li><strong>Authorization</strong> &mdash; the principle of least privilege, purchased through real conspiracies and real blood</li>
-    </ul>
-    <p>Venice&rsquo;s central lesson: system intelligence is architectural. It lives in the relationships between components, not in the capability of any single one. Five centuries of institutional experimentation produced a design principle we can take directly into agentic AI &mdash; invest in the governance architecture at least as seriously as you invest in the individual model.</p>
+    <p><strong>1. Hollow the executive.</strong> The Doge was magnificent and powerless. No single agent should reason, decide, execute, and self-verify.</p>
+    <p><strong>2. Narrow the mandate.</strong> Dozens of magistracies, each scoped to one domain. Specialized agents with scoped permissions outperform generalists.</p>
+    <p><strong>3. Separate reasoning from execution from verification.</strong> Different bodies for investigation, deliberation, execution, audit. The producer of work must never be its sole evaluator.</p>
+    <p><strong>4. Build the archive, not the officer.</strong> The <em>relazioni</em> system: structured reports filed, indexed, preserved. Persistent memory is infrastructure.</p>
+    <p><strong>5. Overlap jurisdictions on purpose.</strong> Multiple bodies able to catch the same failure. Redundancy is a security architecture.</p>
+    <p><strong>6. Make the governors shareholders.</strong> The Serrata bound private wealth to institutional quality. Align incentives through architecture, not instructions.</p>
+    <p><strong>7. Encode rules in architecture, not instructions.</strong> A prompt is a suggestion. A system permission is a constraint. Build for the gap.</p>
+    <p><strong>8. Watch the watchers.</strong> The Council of Ten was necessary and dangerous. Supervisory agents need supervision too, and the recursion never fully resolves.</p>
+  </section>
+  <section class="chapter reveal">
+    <p>The question Venice leaves open: does governance designed for human-speed actors survive contact with silicon-speed ones?</p>
   </section>
 </article>
 
-<!-- ==================== 3 MINUTES (DEFAULT) ==================== -->
-<article class="version active" id="v-3min">
+<!-- ===== FULL ESSAY ===== -->
+<article class="version active" id="v-full">
   <div class="intro reveal">
-    <aside class="note note-r"><img src="images/concepts/c-archive.jpg" alt=""><strong>Fabbriche Nuove</strong>Designed by Jacopo Sansovino, 1554&ndash;1559. Venice&rsquo;s commercial regulatory headquarters. The building&rsquo;s austere form was deliberate: thrift and utility, not ceremony.</aside>
-    <p class="lede">There is a building in Venice whose history and purpose suggest lessons for how we design AI systems, hard won over six hundred years ago. The Fabbriche Nuove di Rialto, completed in 1559, is not beautiful in the way Venice is supposed to be beautiful &mdash; no marble filigree, no gilded saints. Its rhythm is bureaucratic: window, column, window, column, an unbroken horizontal that communicates thrift and utility. Ground floor: shops, warehouses, commercial infrastructure. Upper floors: the machinery of governance. The building exists because specific environmental pressures demanded it.</p>
+    <p class="lede">Everyone building multi-agent AI systems is solving a problem the Venetian Republic solved in the thirteenth century: how do you coordinate autonomous agents operating in ambiguous environments, at distance, without the ability to supervise them directly?</p>
+    <p>Venice had no choice but to answer this question well. A land-based kingdom could survive mediocre institutions: tax the peasants, garrison the borders, hope for the best. A maritime republic could not. A single voyage around 1250 might involve twenty investors, borrowed capital, multiple merchants owning different cargo, a captain under contractual obligation, Republic-imposed cargo restrictions, customs duties at foreign ports, liability for wreck and piracy, and resolution timelines measured in months. Every link in that chain was a delegation of authority to someone operating beyond line of sight. The men writing the rules were themselves merchants with fortunes at risk. Private wealth depended on public institutional quality.</p>
+    <p>That pressure, sustained across centuries, produced a governance architecture that ran for over a thousand years on the same unreliable hardware we have always had: human beings with interests, blind spots, and the occasional urge to commit fraud. Here are eight of Venice's answers, and what they mean for anyone building agentic systems today.</p>
   </div>
 
-  <figure class="plate plate-short reveal">
-    <img src="images/steps.jpg" alt="Weathered Venetian stone steps curving into fog-covered canal water at dawn.">
-  </figure>
+  <figure class="plate plate-short reveal"><img src="images/steps.jpg" alt="Venetian stone steps descending into fog-covered canal water."></figure>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">I</span><h2>What Venice Built</h2></div>
-    <aside class="note note-l"><img src="images/concepts/c-compass.jpg" alt=""><strong>Land vs. sea</strong>A feudal lord&rsquo;s wealth sat still. Venice&rsquo;s wealth moved across oceans. The sea forced institutional invention the way it forced better hulls.</aside>
-    <p>Venice had almost no land. Its wealth came through the water &mdash; through ventures that could sink, literally, on any given voyage. A typical trading expedition around 1250 involved twenty investors pooling capital, borrowed money staked against future cargo, a captain bound by contractual obligations specifying which ports to visit, customs duties varying by treaty, insurance-like arrangements spreading risk across dozens of parties. Everything took months. Nothing could be supervised directly. And fortunes hung on the outcome.</p>
-    <p>This environment produced institutional invention at a pace and depth that Europe&rsquo;s land-based monarchies could not match. A feudal lord collected rents from tenants bound to the soil whether the bureaucracy was sharp or dull. Venice&rsquo;s merchants needed enforceable contracts, standardized weights, courts that moved faster than the sailing season, diplomatic protection in foreign ports, and confidence that a rival could not bribe the government to destroy them. The men writing the rules were the men whose fortunes sailed under them. Private wealth depended on institutional quality.</p>
-    <aside class="note note-r"><img src="images/concepts/c-columns.jpg" alt=""><strong>Institutional distrust</strong>Not cynicism. Design. Arrange institutions so that competing interests constrain one another. Venice&rsquo;s foundational governance principle.</aside>
-    <p>What emerged was governance built on a principle most modern organizations still resist: <em>institutional distrust as a design philosophy.</em> Everyone has interests. The system&rsquo;s job is to arrange institutions so that those interests constrain one another.</p>
-    <aside class="note note-l"><img src="images/concepts/c-doge.jpg" alt=""><strong>The Hollowed Doge</strong>Could not open mail without witnesses. Could not conduct foreign policy alone. Could not name a successor. The most visible leader was, by design, the least powerful.</aside>
-    <p>The Doge &mdash; crowned, robed, ceremonially supreme &mdash; was almost powerless. His election required alternating rounds of lottery and vote so baroque it took multiple rounds to complete, specifically designed to prevent faction capture.</p>
-    <p>Below him, narrow magistracies governed taxation, grain, salt, trade, and shipbuilding, each within a precisely defined mandate. Overlapping jurisdictions meant multiple bodies could notice the same misconduct. Persistent archives &mdash; the <em>relazioni</em> from ambassadors, registries cross-referenced across decades &mdash; gave the system memory that outlived any individual officer.</p>
-    <aside class="note note-r"><img src="images/concepts/c-scales.jpg" alt=""><strong>Serrata, 1297</strong>Restricted the Great Council to ~200 families who became shareholders in the Republic. Mechanism design before the term existed.</aside>
-    <p>And the Serrata of 1297 made the patriciate shareholders in the Republic, their personal fortunes inseparable from institutional quality. Incentive alignment enforced through architecture.</p>
+    <div class="chapter-head"><span class="numeral">1</span><h2>Hollow the Executive</h2></div>
+    <p>The Doge of Venice was magnificent and powerless. Over generations, the Republic systematically stripped the office of unilateral authority. By the fourteenth century, the Doge could not open his own mail without witnesses, could not meet foreign diplomats alone, and could not leave the city without permission. The electoral procedure, alternating rounds of lot and vote across multiple stages, was designed to make the outcome impossible to rig. The Doge was a symbol. The system ran the Republic.</p>
+    <p class="ai-impl"><strong>For agentic AI:</strong> The first instinct in system design is to build a single orchestrator with root access, one model that reasons, delegates, executes, and evaluates. Venice learned that concentrating power in a single node, however capable, creates a single point of capture. The Doge architecture says: make your central coordinator visible, prestigious even, but strip it of unilateral execution rights. No single agent should be able to reason about a problem, decide the solution, execute it, and confirm its own success. That is a prayer, not an architecture.</p>
   </section>
 
-  <figure class="plate reveal">
-    <img src="images/doge.jpg" alt="A single ornate palazzo doorway emerging from thick dawn fog.">
-  </figure>
-
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">II</span><h2>The Bridge</h2></div>
-    <aside class="note note-l"><img src="images/concepts/c-network.jpg" alt=""><strong>The structural parallel</strong>Replace &ldquo;merchants&rdquo; with &ldquo;agents.&rdquo; Replace &ldquo;the Doge&rdquo; with &ldquo;root access.&rdquo; The constraints map point for point.</aside>
-    <p>Now replace &ldquo;merchants in distant ports&rdquo; with &ldquo;agents running autonomously across distributed systems.&rdquo; Replace &ldquo;the Doge&rdquo; with &ldquo;a single orchestrating model with root access.&rdquo; Replace &ldquo;<em>relazioni</em> from foreign courts&rdquo; with &ldquo;shared context across an agent chain.&rdquo; The structural parallel is not metaphorical. It is dimensional. The constraints Venice faced &mdash; distributed autonomous actors, incomplete information, competing interests, stakes too high for casual governance, trust across distance without direct supervision &mdash; map onto the constraints of multi-agent AI system design point for point.</p>
-  </section>
-
-  <figure class="plate plate-short reveal">
-    <img src="images/rio.jpg" alt="A narrow Venetian side canal between tall palazzo walls, fog filling the passage.">
-  </figure>
-
-  <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">III</span><h2>Eight Dimensions</h2></div>
-    <p>The comparison holds only if it survives the level of specific mechanisms. Below are eight dimensions where Venice&rsquo;s governance challenges map directly onto the design challenges of agentic AI &mdash; each row showing the Venetian problem and solution alongside its modern equivalent.</p>
-    <table class="dim-table">
-      <thead><tr><th></th><th>Venice</th><th>Agentic AI</th></tr></thead>
-      <tbody>
-        <tr><td class="dim-name">Shared context</td><td data-label="Venice"><em>Relazioni</em> and state archives accumulated institutional memory independent of any individual officeholder</td><td data-label="Agentic AI">Persistent shared state that outlives any single agent invocation &mdash; ephemeral compute without durable memory produces incoherence</td></tr>
-        <tr><td class="dim-name">Delegation</td><td data-label="Venice">Salt office governed salt. Grain office governed grain. Narrow mandates with explicit boundaries</td><td data-label="Agentic AI">Scoped agent mandates &mdash; authority to execute within a defined boundary, forbidden from reaching beyond it</td></tr>
-        <tr><td class="dim-name">Orchestration</td><td data-label="Venice">Layered council system: Great Council, Senate, Council of Ten, magistracies &mdash; different bodies for different classes of decision</td><td data-label="Agentic AI">Routing architecture that matches task class to agent capability, with escalation paths &mdash; not a flat pool of equivalent agents</td></tr>
-        <tr><td class="dim-name">Trust</td><td data-label="Venice">Overlapping jurisdictions made misconduct visible to multiple independent bodies &mdash; redundancy as security, not waste</td><td data-label="Agentic AI">Adversarial evaluation &mdash; independent verification agents, because any unchecked output is unverified by definition</td></tr>
-        <tr><td class="dim-name">Data quality</td><td data-label="Venice">Ambassadors as trained observers with structured reporting, cross-referenced across decades and geographies</td><td data-label="Agentic AI">Data provenance through agent chains &mdash; knowing where information came from, how reliable the source, whether independent sources corroborate</td></tr>
-        <tr><td class="dim-name">Goal alignment</td><td data-label="Venice">Serrata made the patriciate shareholders &mdash; private wealth inseparable from institutional quality. Mechanism design, not moral persuasion</td><td data-label="Agentic AI">Incentive structures encoded in architecture, not in instructions &mdash; alignment is a structural problem, not a prompting problem</td></tr>
-        <tr><td class="dim-name">Rules</td><td data-label="Venice">Constitutional order: codified rules, explicit prohibitions, structural constraints on power</td><td data-label="Agentic AI">Encoded permissions vs. prompt-based rules &mdash; a prompt is a suggestion, an architecture that withholds credentials is a constraint</td></tr>
-        <tr><td class="dim-name">Permissions</td><td data-label="Venice">The Doge &mdash; hollowed over generations. Most visible leader = least powerful. Concentrated authority as the primary threat</td><td data-label="Agentic AI">Least privilege: the most capable agent should have the narrowest permissions. Root access is the architecture Venice spent centuries defeating</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <div class="pull reveal">
-    <span class="mark">&ldquo;</span>
-    <q>Venice&rsquo;s lesson: the intelligence that matters is not in the agent. It is in <em>the system the agents operate within.</em></q>
-  </div>
-
-  <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">IV</span><h2>What This Tells Us</h2></div>
-    <p>Venice&rsquo;s central lesson is one we can take directly into agentic AI: invest in the governance architecture at least as seriously as you invest in the individual model. System intelligence is architectural. It lives in narrow mandates that prevent catastrophic overreach, overlapping jurisdictions that catch what individual actors miss, persistent memory that outlives any single operation, and constitutional constraints that survive the moments when suggestions fail.</p>
-    <p>The gaps are real. Venice operated on human timescales &mdash; deliberation took weeks, institutional evolution took generations. Agent systems operate at machine speed, and the failure modes of distributed governance at millisecond timescales are genuinely unknown. And the Venetian system, for all its sophistication, eventually calcified into the inability to adapt.</p>
-    <p>But the structural lessons hold. A republic of merchants, five hundred years ago, learned that capable individuals inside a well-designed system will outperform brilliant individuals inside a poorly designed one. That principle has not aged. The Fabbriche Nuove still stands, plain and functional, outlasting every palace beside it &mdash; and the architecture it represents is the architecture we need to build next.</p>
-  </section>
-
-  <figure class="plate reveal">
-    <img src="images/closing.jpg" alt="First light on the Grand Canal, mist rising off perfectly still water.">
-      </figure>
-</article>
-
-<!-- ==================== FULL ESSAY ==================== -->
-<article class="version" id="v-full">
-  <div class="intro reveal">
-    <p class="lede">There is a building in Venice whose history and purpose suggest lessons for how we design AI systems, hard won over six hundred years ago. It sits on the Grand Canal at the Rialto bend, a long, low, repetitive facade of arched windows running above a commercial arcade. The Fabbriche Nuove di Rialto, designed by Jacopo Sansovino and completed in 1559, is not beautiful in the way Venice is supposed to be beautiful. No marble filigree, no gilded saints, no Byzantine theater. Its rhythm is bureaucratic: window, column, window, column, window, an unbroken horizontal that whispers <em>parsimonia e dell&rsquo;utile</em> &mdash; thrift and utility. The same Sansovino designed the lavish Biblioteca Marciana at San Marco, where the message was &ldquo;We are a magnificent imperial republic.&rdquo; At the Rialto, the message was different. We run an extremely serious business.</p>
-    <aside class="note note-r"><img src="images/concepts/c-archive.jpg" alt=""><strong>Sansovino&rsquo;s two voices</strong>The same architect designed both the lavish Biblioteca Marciana and this deliberately plain building. The Republic used different architectural registers for ceremony and for operations &mdash; and knew which one kept it alive.</aside>
-    <p>From across the canal, sitting in what was once the Ca&rsquo; da Mosto &mdash; a merchant&rsquo;s palazzo from the thirteenth century &mdash; you can read the Fabbriche Nuove not as architecture but as argument. The building exists because specific environmental pressures demanded it. Venice&rsquo;s ruling families grew rich through trade, ships, finance, and overseas concessions, not through feudal rents collected from peasants who had no choice but to pay.</p>
-    <aside class="note note-l"><img src="images/concepts/c-compass.jpg" alt=""><strong>Ca&rsquo; da Mosto</strong>One of the oldest merchant houses on the Grand Canal, built in the 13th century. It predates the Fabbriche Nuove by 300 years. The private merchant world looking across the water at the public regulatory machinery built to govern it.</aside>
-    <p>A merchant sending a galley to Alexandria needed enforceable contracts, standardized weights, insurance arrangements, credit instruments, courts that moved faster than the sailing season, diplomatic protection in foreign ports, and confidence that a rival could not bribe the government to destroy him. The men writing the rules were not an external bureaucracy. They were merchants regulating a system in which they themselves had fortunes at risk. Private wealth depended on public institutional quality, and institutional quality depended on getting governance right in conditions of radical uncertainty.</p>
-    <p>That building across the canal is the physical residue of their solution: not a single brilliant ruler, but a distributed system of narrow, overlapping, mutually suspicious institutions. It housed magistracies supervising commerce and mercantile disputes, each with its own mandate, tools, and limits. Ground floor: shops, warehouses, commercial infrastructure. Upper floors: the machinery of governance. Form followed function, and the function was managing complexity that no individual &mdash; however wise &mdash; could hold in a single mind.</p>
-    <p>This is the thesis. Systems respond to their environment. Their institutional architectures are shaped by the pressures, constraints, and needs they must survive. And the pressures Venice faced between the thirteenth and sixteenth centuries forced one of the most sophisticated governance architectures in human history &mdash; centuries before modern management theory, corporate governance frameworks, or systems thinking had names.</p>
-  </div>
-
-  <figure class="plate plate-short reveal"><img src="images/steps.jpg" alt="Weathered Venetian stone steps curving into fog-covered canal water at dawn."></figure>
-
-  <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">I</span><h2>What Venice Built</h2></div>
-    <p>To understand what made Venice different, start with what made it exposed.</p>
-    <p>A land-based kingdom could afford mediocre institutions. A feudal lord collected rents from tenants bound to the soil; the revenue came whether the bureaucracy was sharp or dull, whether the courts were fast or glacial. Territorial control was the asset, and territorial control could be maintained through force. Venice had almost no land. Its wealth came through the water &mdash; through ventures that could sink, literally, on any given voyage.</p>
-    <p>Consider a typical Venetian trading expedition around 1250: twenty investors pooling capital, borrowed money staked against future cargo, different merchants owning different portions of the hold, a captain bound by contractual obligations specifying which ports to visit, the Republic itself prohibiting certain cargoes for diplomatic reasons, customs duties varying by treaty, foreign sovereigns whose goodwill could evaporate between one sailing season and the next, liability for shipwreck apportioned by contract, insurance-like arrangements spreading risk across dozens of parties. Everything took months. Nothing could be supervised directly. And fortunes &mdash; personal, familial, sometimes national &mdash; hung on the outcome.</p>
-    <aside class="note note-l"><img src="images/concepts/c-compass.jpg" alt=""><strong>The 1250 voyage</strong>20 investors, borrowed money, multiple cargo owners, a captain under contract, customs at both ends, foreign treaties, shipwreck liability, piracy claims. No real-time communication. The institutional apparatus to manage this predated modern corporate governance by 500 years.</aside>
-    <p>This environment, sustained across centuries of Mediterranean trade, produced institutional invention at a pace and depth that Europe&rsquo;s land-based monarchies could not match. The demands were relentless: records demanded contracts, contracts demanded notaries, notaries demanded courts, courts demanded standardized procedures, procedures demanded specialized officials, officials demanded auditing. Each link in the chain existed because the previous one was insufficient.</p>
+    <div class="chapter-head"><span class="numeral">2</span><h2>Narrow the Mandate</h2></div>
+    <p>Venice governed through dozens of narrow magistracies, each with a specific domain: taxation, grain supply, salt, the regulation of maritime trade, shipbuilding, foreign commerce, market standards, sanitation, canals, customs, public health, espionage, state security. Each magistracy had its own mandate, its own tools, its own permissions, and no authority beyond them. The grain officials could not regulate trade. The customs officers could not set tax policy.</p>
+    <p class="ai-impl"><strong>For agentic AI:</strong> Specialized agents with scoped permissions outperform general-purpose agents given broad access. This is a competence argument as much as a safety one. A magistrate who spent years understanding the salt trade made better salt decisions than a generalist council ever could. The same holds for agents. An agent with a narrow mandate, a constrained toolset, and deep context on its domain will produce better outputs than an all-access agent trying to reason across everything. Scope the permissions. Scope the tools. Scope the context window. Breadth is the enemy of judgment.</p>
   </section>
 
   <figure class="plate plate-short reveal"><img src="images/rio.jpg" alt="A narrow Venetian side canal between tall palazzo walls, fog filling the passage."></figure>
 
   <section class="chapter reveal">
-    <p>What emerged was remarkable. Venice developed a governance architecture built on a principle that most modern organizations still resist: <em>institutional distrust as a design philosophy.</em> Everyone has interests. The system&rsquo;s job is to arrange institutions so that those interests constrain one another.</p>
-    <aside class="note note-r"><img src="images/concepts/c-columns.jpg" alt=""><strong>Institutional distrust</strong>Not cynicism &mdash; design. The assumption that every actor has interests, and that institutions should be arranged so those interests constrain one another.</aside>
-    <p>The Doge, Venice&rsquo;s head of state, illustrates the principle at its most extreme. Over generations, the Venetians hollowed out the office. The Doge was magnificent &mdash; crowned, robed, ceremonially supreme &mdash; and almost powerless. His election required an alternating sequence of lottery and vote so baroque it took multiple rounds to complete, specifically designed to prevent any faction from capturing the outcome.</p>
-    <aside class="note note-l"><img src="images/concepts/c-doge.jpg" alt=""><strong>The Hollowed Doge</strong>Could not open mail without witnesses. Could not conduct foreign policy alone. Could not name a successor. Could not leave Venice. The most visible leader was, by design, the least powerful.</aside>
-    <p>He was, in modern terms, a constitutional figurehead engineered to prevent exactly the failure mode that destroyed most of Venice&rsquo;s rivals: the concentration of authority in a single brilliant, corruptible, mortal individual.</p>
-    <aside class="note note-r"><img src="images/concepts/c-scales.jpg" alt=""><strong>Francis Fukuyama</strong>Political scientist. In <em>The Origins of Political Order</em>, argues that state capacity &mdash; the ability to build institutions that constrain the powerful &mdash; matters more than natural resources. Venice is his thesis rendered in stone and water.</aside>
-    <p>Below the Doge, Venice built an extraordinary network of narrow magistracies &mdash; separate bodies governing taxation, grain supply, salt, maritime regulation, shipbuilding, foreign trade, market supervision, sanitation, canals, customs, public health, espionage, state security. Each operated within a precisely defined mandate, its own tools, its own permissions. No single magistracy could reach beyond its boundaries. As the political scientist Francis Fukuyama has argued in <em>The Origins of Political Order</em>, Venice&rsquo;s state capacity was unusual precisely because it distributed authority across institutions rather than concentrating it.</p>
-    <p>Persistent information systems completed the architecture: written reporting, diplomatic dispatches, registries, archives. Venetian ambassadors produced <em>relazioni</em> &mdash; end-of-mission reports synthesizing intelligence from foreign courts &mdash; that were archived, cross-referenced, and consulted by subsequent officials. Institutional memory outlived individual officers.</p>
-    <p>Overlapping jurisdictions created redundancy as a security mechanism. Multiple bodies had the authority to notice the same misconduct. Any significant action moved through a sequence of proposal, challenge, authorization, execution, and audit, with different bodies responsible at each stage. No single institution served as detective, prosecutor, judge, executioner, and accountant simultaneously.</p>
-    <aside class="note note-l"><img src="images/concepts/c-eye.jpg" alt=""><strong>Council of Ten</strong>Created after the Bajamonte Tiepolo coup attempt of 1310. Extraordinary powers: surveillance, investigation, suspension of officials. The supervisory agent &mdash; necessary and dangerous. Venice spent centuries fighting over its proper scope.</aside>
-    <p>And the <em>Council of Ten</em>, established after the Bajamonte Tiepolo conspiracy of 1310, wielded extraordinary powers to monitor, detect anomalies, investigate, and escalate &mdash; the watchers who watched the watchers, though Venice understood that this merely displaced the problem one level up rather than solving it.</p>
-    <aside class="note note-r"><img src="images/concepts/c-scales.jpg" alt=""><strong>Serrata, 1297</strong>Restricted the Great Council to ~200 hereditary families. The effect: a permanent &ldquo;shareholder class&rdquo; whose private wealth depended on institutional quality. Mechanism design before the term existed.</aside>
-    <p>And then there was the <em>Serrata</em> of 1297, which restricted membership in the Great Council to a hereditary patriciate of several hundred families. This is typically read as oligarchic closure. It was also something else: it made those families shareholders in the Republic, their personal fortunes inseparable from the institutional quality of the state. The men writing the rules were the men whose fortunes sailed under them. Incentive alignment enforced through the architecture of governance itself.</p>
+    <div class="chapter-head"><span class="numeral">3</span><h2>Separate Reasoning from Execution from Verification</h2></div>
+    <p>No single Venetian body served as detective, prosecutor, judge, executioner, and accountant. Proposals moved through distinct phases: investigation, deliberation, authorization, execution, and audit. Different institutions handled each step. The body that identified a problem did not decide the remedy. The body that decided the remedy did not carry it out. And the body that carried it out did not verify the result.</p>
+    <p class="ai-impl"><strong>For agentic AI:</strong> In most multi-agent systems today, a single model reasons about a task, generates a plan, executes steps, and self-evaluates the output. This is the equivalent of asking a Venetian magistrate to investigate himself, render judgment, carry out the sentence, and then audit his own performance. The Venetian separation maps directly: one agent for analysis and planning, a different agent for execution, a third for evaluation. As Paul Christiano and others working on AI alignment have argued, the ability to verify work must be architecturally independent from the ability to produce it. Otherwise you are building a confident liar.</p>
   </section>
-
-  <figure class="plate reveal"><img src="images/doge.jpg" alt="A single ornate palazzo doorway emerging from thick dawn fog."><figcaption>Magnificent and almost powerless. <span>Venice hollowed its most prestigious office to prevent its most dangerous failure mode.</span></figcaption></figure>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">II</span><h2>The Bridge</h2></div>
-    <p>Bear with me. This is not a history essay.</p>
-    <p>The Venetian system emerged from a specific set of environmental pressures:</p>
-    <ul>
-      <li>Distributed autonomous actors operating with incomplete information</li>
-      <li>Competing interests that could not be eliminated, only channeled</li>
-      <li>Stakes too high for casual governance</li>
-      <li>Decisions requiring judgment under uncertainty, not the application of fixed rules</li>
-      <li>Trust across distance without direct supervision</li>
-      <li>Accountability structures that had to function when the people being held accountable were months away by sea</li>
-    </ul>
-    <aside class="note note-l"><img src="images/concepts/c-network.jpg" alt=""><strong>The structural parallel</strong>Replace &ldquo;merchants in distant ports&rdquo; with &ldquo;agents across distributed systems.&rdquo; Replace &ldquo;the Doge&rdquo; with &ldquo;a single model with root access.&rdquo; The constraints map point for point.</aside>
-    <p>Read that list again, slowly, and replace &ldquo;merchants in distant ports&rdquo; with &ldquo;agents running autonomously across distributed systems.&rdquo; Replace &ldquo;the Doge&rdquo; with &ldquo;a single orchestrating model with root access.&rdquo; Replace &ldquo;<em>relazioni</em> from foreign courts&rdquo; with &ldquo;shared context across an agent chain.&rdquo; Replace &ldquo;overlapping jurisdictions&rdquo; with &ldquo;adversarial evaluation and redundant verification.&rdquo;</p>
-    <p>The structural parallel is not metaphorical. It is dimensional. The constraints Venice faced across centuries of maritime commerce map, point for point, onto the constraints of designing multi-agent AI systems today. And the Venetian solutions &mdash; arrived at through hard experience, institutional failure, conspiracy, corruption, and iterative correction over hundreds of years &mdash; contain design principles that the AI field is only beginning to articulate from first principles.</p>
-    <p>The Venice material was never historical tourism. It is direct precedent.</p>
+    <div class="chapter-head"><span class="numeral">4</span><h2>Build the Archive, Not the Officer</h2></div>
+    <p>Venetian ambassadors were required to produce <em>relazioni</em>: formal end-of-mission reports documenting everything they had learned about a foreign court. Its rulers, its finances, its military capacity, its internal politics, its vulnerabilities. These reports were filed, indexed, and preserved. When a new ambassador departed for Constantinople, they did not start from zero. They read every <em>relazione</em> their predecessors had written. The institution remembered what individual officers forgot. The archive outlived the officer.</p>
+    <p class="ai-impl"><strong>For agentic AI:</strong> Most agent architectures treat compute as ephemeral. An agent reasons through a problem, produces an output, and the reasoning vanishes. The next time a similar problem arrives, the system starts from scratch. Venice's <em>relazioni</em> system is the argument for persistent memory: structured, indexed, retrievable, independent of any single agent's context window. Put simply: if your system cannot learn from what it did last Tuesday, it is a series of expensive one-night stands with the same problem.</p>
   </section>
 
-  <figure class="plate reveal"><img src="images/institutions.jpg" alt="Endless identical stone arches of a Venetian arcade receding into grey mist."></figure>
+  <div class="pull reveal">
+    <span class="mark">&ldquo;</span>
+    <q>Prompts are what you tell an agent to do. Permissions are what you <em>allow</em> an agent to do. Build for the gap.</q>
+  </div>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">III</span><h2>Eight Dimensions</h2></div>
-    <p>The comparison holds only if it survives the level of specific mechanisms. Here are eight dimensions where Venice&rsquo;s governance architecture and agentic system design face the same structural problem &mdash; and where the Venetian solution illuminates the AI one.</p>
-    <aside class="note note-r"><img src="images/concepts/c-archive.jpg" alt=""><strong>Relazioni</strong>Formal end-of-mission reports from Venetian ambassadors. Standardized format, archived and cross-referenced across decades. Venice&rsquo;s institutional memory system &mdash; and the ancestor of persistent shared state.</aside>
-    <p><strong>Shared context.</strong> Venice&rsquo;s challenge: how do you maintain coherent state across a system where individual actors are separated by months of travel time and operating on local information? Their solution was architectural &mdash; the <em>relazioni</em>, the archival system, the registries that accumulated institutional memory independent of any individual. When a new ambassador arrived at a foreign court, he did not start from zero; he read his predecessors&rsquo; reports. The context was persistent, structured, and accessible.</p>
-    <p>Agentic systems face the identical problem in compressed timescale. Individual agents operate on local context windows, and when context is ephemeral &mdash; when the compute finishes and the state vanishes &mdash; the system loses its memory between operations. The Venetian lesson: durable, structured, shared state is not a feature. It is the foundation without which distributed intelligence degrades into distributed guessing.</p>
-    <aside class="note note-l"><img src="images/concepts/c-lock.jpg" alt=""><strong>Least privilege</strong>Give each actor exactly the authority its function requires &mdash; no more. A 500-year-old security principle, tested through centuries of Venetian conspiracies and near-collapses.</aside>
-    <p><strong>Delegation of authority.</strong> Venice never granted a magistracy more mandate than a specific function required. The salt office governed salt. The grain office governed grain. Authority was narrow by design, and the narrowness was the safety mechanism.</p>
-    <p>In agent architectures, the equivalent is scoped mandates &mdash; an agent authorized to execute within a defined boundary, forbidden from reaching beyond it. The instinct to build a general-purpose agent that can &ldquo;do anything&rdquo; is the instinct to build a Doge: magnificent, flexible, and a single point of catastrophic failure. Venice learned that narrow mandates are not a limitation on capability. They are how capability survives contact with reality.</p>
-    <aside class="note note-r"><img src="images/concepts/c-columns.jpg" alt=""><strong>Layered councils</strong>Great Council: legislation. Senate: foreign policy. Council of Ten: security. Collegio: executive coordination. Magistracies: domain-specific operations. Not a hierarchy &mdash; a routing architecture.</aside>
-    <p><strong>Orchestration.</strong> Venice&rsquo;s council system &mdash; the Great Council, the Senate, the Council of Ten, the various magistracies &mdash; was not a hierarchy in the modern corporate sense. It was an orchestration layer: different bodies activated for different classes of decision, with escalation paths, veto mechanisms, and lateral channels. Routine commerce moved through the magistracies. Diplomatic strategy moved through the Senate. Existential threats moved through the Council of Ten.</p>
-    <p>The orchestration was the intelligence. Agent systems require the same structural thinking: not a flat pool of equivalent agents, but an orchestration architecture that routes different classes of task to different capabilities, with clear escalation paths when a task exceeds an agent&rsquo;s mandate or competence.</p>
+    <div class="chapter-head"><span class="numeral">5</span><h2>Overlap Jurisdictions on Purpose</h2></div>
+    <p>Venice deliberately gave multiple bodies the ability to notice the same misconduct. Jurisdictions overlapped by design, a security architecture disguised as administrative sprawl. If the salt magistracy was corrupt, the customs officials might catch it. If the customs officials were captured, the auditors behind them might notice. Redundancy meant that no single compromised node could go undetected.</p>
+    <p class="ai-impl"><strong>For agentic AI:</strong> Redundancy in supervision looks like waste until a single point of failure destroys you. In agentic systems, this translates to adversarial evaluation: having multiple independent models assess the same output, with the ability to flag disagreements. The instinct to deduplicate, to give each problem exactly one evaluator, is an efficiency argument that trades away the very property that makes systems trustworthy. Venice paid for overlapping magistracies in administrative overhead. The return was a republic that lasted longer than any other in European history. In agent design, the equivalent cost is extra inference calls. The question is whether you can afford the alternative.</p>
   </section>
 
-  <figure class="plate plate-short reveal"><img src="images/reflection.jpg" alt="The Grand Canal at dawn, distant domes silhouetted through heavy fog, golden light reflecting off still water."></figure>
+  <figure class="plate plate-short reveal"><img src="images/reflection.jpg" alt="The Grand Canal at dawn, distant domes through fog, golden light on still water."></figure>
 
   <section class="chapter reveal">
-    <aside class="note note-r"><img src="images/concepts/c-eye.jpg" alt=""><strong>Paul Christiano</strong>AI safety researcher. Argues that trustworthiness should be a structural property of the system, not a property of individual agents.</aside>
-    <p><strong>Trust and verification.</strong> The Venetians did not trust individuals. They did not design their system to produce trust. They designed it to function in the absence of trust, through overlapping jurisdictions that made any significant misconduct visible to multiple independent bodies. Redundancy was not inefficiency; it was the security model.</p>
-    <p>In agent systems, the equivalent is adversarial evaluation &mdash; independent verification agents that review outputs not because the primary agent is expected to fail, but because any single agent&rsquo;s output is, by definition, unchecked until a second perspective examines it. As the AI safety researcher Paul Christiano has argued, the question is not whether you can trust the agent. The question is whether you have arranged the system so that trustworthiness is a structural property, not an individual one.</p>
-    <p>The Venetian architecture assumed corruption was inevitable and built the system to detect and contain it. The honest version of the same assumption in AI: hallucination, drift, and error are not bugs to be eliminated from individual agents. They are properties to be detected and contained by the system.</p>
-    <p><strong>Data quality.</strong> Venice&rsquo;s diplomatic intelligence network was, for its era, without peer. Ambassadors were trained observers, their reports followed structured formats, and the archival system allowed cross-referencing across decades and geographies. The Republic could triangulate intelligence from multiple sources, weigh competing accounts, and identify which informants had track records of accuracy.</p>
-    <aside class="note note-l"><img src="images/concepts/c-network.jpg" alt=""><strong>Cynefin framework</strong>David Snowden&rsquo;s model distinguishing complex systems (probe-sense-respond) from merely complicated ones (sense-analyze-respond). Venice governed a complex system. Most agentic architectures are designed as if the problem were merely complicated.</aside>
-    <p>For agentic workflows, the parallel is data provenance &mdash; knowing where information came from, how it was produced, how reliable the producing agent has been historically, and whether multiple independent sources corroborate it. As David Snowden&rsquo;s Cynefin framework reminds us, in complex environments the quality of your decisions cannot exceed the quality of your sense-making. An agent chain that cannot trace the provenance of its inputs is a Venetian Republic that accepts any traveler&rsquo;s story as diplomatic intelligence.</p>
+    <div class="chapter-head"><span class="numeral">6</span><h2>Make the Governors Shareholders</h2></div>
+    <p>The Serrata of 1297 restricted membership in the Great Council to a hereditary patriciate, several hundred families who became, in effect, shareholders in the Republic. Undemocratic, certainly. But it solved an alignment problem that democratic and autocratic systems both struggle with: the people writing the rules had their own wealth bound to the system those rules governed. A patrician who passed bad trade regulation would watch his own ventures suffer under it. As Francis Fukuyama argues in <em>The Origins of Political Order</em>, Venice's longevity owed much to this structural alignment between governing class and institutional quality. The incentive was financial, not rhetorical.</p>
+    <p class="ai-impl"><strong>For agentic AI:</strong> Alignment in AI is usually discussed as a prompt-level or training-level concern: tell the model what to care about and hope it complies. Venice suggests a different approach: structural incentive alignment. Design the system so that an agent's success metric is bound to the outcome it governs. If an agent manages a pipeline, measure it on pipeline health, not task completion. If an agent evaluates code quality, score it on the downstream defect rate, not the number of reviews performed. Rhetoric is a suggestion. Architecture is a constraint. Venice bet on the constraint.</p>
   </section>
-
-  <figure class="plate reveal"><img src="images/archive.jpg" alt="A Renaissance stone facade dissolving into its own broken reflection on dark canal water at dusk."></figure>
-
-  <div class="pull reveal"><span class="mark">&ldquo;</span><q>Systems respond to their environment. The building&rsquo;s form tells you <em>what the pressures were.</em></q></div>
 
   <section class="chapter reveal">
-    <aside class="note note-r"><img src="images/concepts/c-scales.jpg" alt=""><strong>Stuart Russell</strong>Author of <em>Human Compatible</em>. Argues that alignment is a property of the architecture, not the agent.</aside>
-    <p><strong>Goal alignment.</strong> The Serrata was, among other things, a mechanism design solution. By making the patriciate&rsquo;s wealth inseparable from the Republic&rsquo;s institutional quality, Venice aligned private incentives with public outcomes. A patrician who corrupted the system was, in a concrete financial sense, corrupting the platform on which his own fortune depended.</p>
-    <p>The alignment problem in AI &mdash; how do you ensure that an agent&rsquo;s behavior serves the objectives it was designed to serve? &mdash; has the same shape. As Stuart Russell has argued in <em>Human Compatible</em>, alignment is a property of the architecture, not the agent. The Venetian answer suggests that alignment is not primarily a training problem or a prompting problem. It is a structural problem, solved through the architecture of incentives and constraints, not through better instructions to individual agents.</p>
-    <p><strong>Rules and constraints.</strong> Venice governed through constitutional order &mdash; codified rules, established procedures, explicit prohibitions &mdash; not through the personal judgment of wise leaders. The rules were the system. Individual judgment operated within the rules, not above them.</p>
-    <aside class="note note-l"><img src="images/concepts/c-lock.jpg" alt=""><strong>Prompt vs. permission</strong>A prompt that says &ldquo;don&rsquo;t access the database&rdquo; is a suggestion. An architecture that withholds the credentials is a constraint. Venice understood the difference five centuries ago.</aside>
-    <p>In agent architectures, the distinction between encoded permissions and prompt-based rules matters enormously. A prompt is a suggestion. An encoded permission is a constraint. Venice discovered, through bitter experience with the Bajamonte Tiepolo conspiracy and others, that systems governed by suggestions &mdash; &ldquo;the Doge should not accumulate too much power&rdquo; &mdash; fail precisely when the pressure is highest. Constitutional constraints &mdash; &ldquo;the Doge <em>cannot</em> accumulate power because the architecture prevents it&rdquo; &mdash; survive.</p>
-    <p><strong>Authorization and permissions.</strong> The hollowed Doge is the clearest lesson in the entire Venetian system. Venice took its most powerful office and, over generations, removed its powers &mdash; not because the Doges were bad, but because the <em>architecture</em> of concentrated authority was dangerous regardless of the individual who held it. The principle of least privilege, arrived at through centuries of political evolution.</p>
-    <aside class="note note-r"><img src="images/concepts/c-doge.jpg" alt=""><strong>Root access = the Doge</strong>Venice did not arrive at least privilege through theory. It arrived there through watching what happened when it gave the Doge real power. The lesson came expensive. We have the option of learning it cheaper.</aside>
-    <p>In agent systems, the equivalent question is stark: should any single agent have root access? The Venetian answer, purchased through real conspiracies and real blood, is unambiguous. The most dangerous architecture is the one where a single actor &mdash; however intelligent, however well-intentioned &mdash; can take actions that the rest of the system cannot review, override, or reverse.</p>
+    <div class="chapter-head"><span class="numeral">7</span><h2>Encode Rules in Architecture, Not Instructions</h2></div>
+    <p>Venetian governance rested on constitutional constraints, on structure rather than trust. The Doge's impotence was structurally enforced: he lacked the tools to act unilaterally even if he wanted to. Magistrates could not exceed their jurisdictions because the system gave them no means to do so. The electoral mechanism was a procedure with physical lottery balls, locked rooms, and witnesses at every stage. Rules lived in process and infrastructure, in stone and procedure.</p>
+    <p class="ai-impl"><strong>For agentic AI:</strong> A prompt is a suggestion. A system permission is a constraint. When an agent's instructions say "do not access the production database," that is a hope. When the agent's API credentials do not include production database access, that is a guarantee. Venice understood the difference between advisory norms and constitutional constraints. Most agent systems today rely overwhelmingly on advisory norms: system prompts, guidelines, guardrails that exist as text the model can choose to interpret flexibly. The lesson: every rule that matters should be encoded in the system architecture (permissions, tool access, API scoping). Prompts are what you tell an agent to do. Permissions are what you allow an agent to do. Build for the gap between them.</p>
   </section>
 
-  <figure class="plate reveal"><img src="images/council.jpg" alt="A narrow, dark side canal at dusk, a single distant lantern glowing through the fog."></figure>
+  <figure class="plate plate-short reveal"><img src="images/council.jpg" alt="A narrow, dark side canal at dusk, a single distant lantern."></figure>
 
   <section class="chapter reveal">
-    <div class="chapter-head"><span class="numeral">IV</span><h2>What This Tells Us</h2></div>
-    <p>The Venice comparison does not produce a neat checklist. It produces a reframe.</p>
-    <aside class="note note-r"><img src="images/concepts/c-doge.jpg" alt=""><strong>Venice&rsquo;s lesson</strong>The individual&rsquo;s capability matters less than the architecture that coordinates, constrains, and corrects it. Five centuries of evidence: invest in the system.</aside>
-    <p>Most of the investment in AI today goes toward the same question: how intelligent can we make the individual model? Better reasoning, larger context windows, more sophisticated tool use. Venice offers a lesson from five centuries of institutional experimentation: the individual&rsquo;s capability matters less than the architecture that coordinates, constrains, and corrects it. The right investment is in the system.</p>
-    <p>System intelligence is architectural. It lives in the relationships between components, not in the capability of any single component. It emerges from narrow mandates that prevent catastrophic overreach, overlapping jurisdictions that catch what individual actors miss, persistent memory that outlives any single operation, constitutional constraints that survive the moments when suggestions fail, and incentive structures that align individual agent behavior with system-level objectives.</p>
-    <p>Several concrete design principles follow. First, distrust is a feature, not a failure &mdash; design systems that function in the absence of trust between components, and you get systems that remain functional when any individual component degrades. Second, narrow mandates outperform broad ones in high-stakes environments, not because narrow agents are smarter, but because they are <em>containable</em> when they fail.</p>
-    <p>Third, memory must be architectural, not incidental &mdash; an agent system with ephemeral state is a republic that burns its archives after every session. Fourth, rules must be encoded in the architecture, not stated in the prompt. A prompt is a norm. A norm is exactly as strong as the pressure against it.</p>
+    <div class="chapter-head"><span class="numeral">8</span><h2>Watch the Watchers (and Accept That You Can't Fully)</h2></div>
+    <p>The Council of Ten held extraordinary powers: surveillance, investigation, suspension of officials, emergency action. Venice created it because someone had to watch for systemic threats that no individual magistracy would detect. And yet the Council itself became the most dangerous institution in the Republic. Concentrated supervisory power, the Venetians discovered, is both necessary and inherently risky. The watchers need watchers, and at some point the recursion has to stop.</p>
+    <p class="ai-impl"><strong>For agentic AI:</strong> Every multi-agent system needs a supervisory layer, something that monitors for cascading failures, detects anomalies, and can intervene. This is the Council of Ten pattern: an agent (or set of agents) with elevated privileges and broad visibility. The danger is identical to Venice's. A supervisory agent with the power to override other agents is also the agent most capable of causing catastrophic damage if it malfunctions or is compromised. Stuart Russell's work on AI safety circles this problem repeatedly: the more capable and autonomous the supervisor, the higher the stakes of supervisory failure. Venice managed it through term limits, mandatory rotation, and overlapping oversight from other bodies. In agent systems, the equivalents are audit logs, time-bounded elevated permissions, and multiple independent supervisory agents that monitor each other. The honest position is that the recursion of "who watches the watcher" eventually bottoms out in a human being who is paying attention. That may be the most Venetian lesson of all.</p>
   </section>
 
-  <div class="pull reveal"><span class="mark">&ldquo;</span><q>Venice&rsquo;s lesson: the intelligence that matters is not in the agent. It is in <em>the system the agents operate within.</em></q></div>
+  <div class="pull reveal">
+    <span class="mark">&ldquo;</span>
+    <q>Venice teaches us to invest in the system, not the individual. The question we have yet to answer is whether any system can govern agents <em>faster than the system itself.</em></q>
+  </div>
 
   <section class="chapter reveal">
-    <aside class="note note-l"><img src="images/concepts/c-eye.jpg" alt=""><strong>Venice fell in 1797</strong>To Napoleon&rsquo;s army &mdash; not to a superior system. Institutional sophistication did not prevent all failure modes. The same rigidity that prevented capture eventually prevented adaptation.</aside>
-    <p>The gaps are real, and honesty about them matters. Venice operated on human timescales &mdash; deliberation took weeks, correction took months, institutional evolution took generations. Agent systems operate at machine speed, and the failure modes of distributed governance at millisecond timescales are genuinely unknown.</p>
-    <p>Venice&rsquo;s accountability structures ultimately rested on human judgment, social pressure, and the threat of exile or execution &mdash; mechanisms that have no obvious analogue for non-human agents. And the Venetian system, for all its sophistication, was not immune to decline; the constitutional rigidity that protected the Republic eventually calcified into the inability to adapt, and Venice spent its final centuries as a magnificent museum of its own institutional achievements.</p>
-    <p>These are not reasons to dismiss the comparison. They are reasons to take it seriously as a starting point rather than a finished answer.</p>
-    <p>Stand at the Ca&rsquo; da Mosto and look across the canal. The Fabbriche Nuove is still there, its long repetitive facade still communicating the same message it communicated in 1559: that the hard problem of governance is not finding a brilliant leader but building a system that remains intelligent after any individual within it fails, defects, or dies. We are building autonomous systems that will operate at scales and speeds Venice&rsquo;s patricians could not have imagined, making decisions with consequences they never had to contemplate. The Venetians had centuries to iterate toward their architecture. We have years, maybe less.</p>
-    <p>But the structural lessons are there for the taking. A republic of merchants, five hundred years ago, learned that capable individuals inside a well-designed system will outperform brilliant individuals inside a poorly designed one. That principle has not aged. The Fabbriche Nuove still stands, plain and functional, outlasting every palace beside it &mdash; and the architecture it represents is the architecture we need to build next.</p>
+    <p>Venice's governance ran for a millennium on human hardware. Humans are slow, they tire, they have reputations to protect and families to feed, all of which constrain behavior in ways that artificial agents do not share. An AI agent does not fear shame, does not need sleep, and can operate at a speed that makes human oversight physically impossible for many tasks.</p>
+    <p>The real question Venice leaves unanswered: does governance designed for human-speed actors survive contact with silicon-speed ones? The overlapping jurisdictions, the separation of powers, the mandatory reporting: all of it assumed that the governed agents operated slowly enough to be caught. Whether these patterns hold when the agents can act a million times faster than their overseers remains genuinely open. Venice teaches us to invest in the system, not the individual. The system question we have not yet answered is whether any system can govern agents that are faster than the system itself.</p>
   </section>
 
-  <figure class="plate reveal"><img src="images/closing.jpg" alt="First light on the Grand Canal, mist rising off perfectly still water."><figcaption>First light on the Grand Canal. <span>The architecture carried an intelligence no single citizen possessed.</span></figcaption></figure>
+  <figure class="plate reveal"><img src="images/closing.jpg" alt="First light on the Grand Canal, mist rising off perfectly still water."></figure>
 </article>
 
 </main>
@@ -442,58 +262,38 @@ footer{border-top:1px solid var(--rule);margin-top:clamp(4rem,10vh,7rem);backgro
 <footer>
   <div class="foot-inner reveal">
     <div class="sig">Noah Raford</div>
-    <p>Written from Ca&rsquo; da Mosto, on the Grand Canal, Venice.</p>
+    <p>Written from Ca' da Mosto, on the Grand Canal, Venice.</p>
     <p>If Venice teaches us anything, it is that the next leap in artificial intelligence will come from a better system, not a smarter model. <a href="#top">Return to the top &uarr;</a></p>
     <div class="colophon">Set in Libre Caslon Display and Spectral. Imagery art-directed in the register of J.M.W. Turner: Venice at first light, fog on the water, no people, no boats.</div>
   </div>
 </footer>
 
 <script>
-// reading progress
 const bar=document.getElementById('progress');
 const onScroll=()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'};
 addEventListener('scroll',onScroll,{passive:true});onScroll();
-
-// scroll reveals
 const io=new IntersectionObserver(es=>{es.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},
   {threshold:.12,rootMargin:'0px 0px -8% 0px'});
 function observeReveals(){document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el))}
 observeReveals();
-
-// hide scroll cue
 addEventListener('scroll',()=>{const c=document.querySelector('.scrollcue');
   if(c&&scrollY>60)c.style.opacity='0'},{passive:true,once:true});
-
-// length picker
 const picker=document.getElementById('picker');
 const buttons=document.querySelectorAll('.pick');
 const versions=document.querySelectorAll('.version');
-
 buttons.forEach(btn=>{
   btn.addEventListener('click',()=>{
-    const target=btn.dataset.v;
     const current=document.querySelector('.version.active');
-    const next=document.getElementById('v-'+target);
+    const next=document.getElementById('v-'+btn.dataset.v);
     if(current===next)return;
-
-    // update buttons
     buttons.forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
-
-    // scroll picker into view
     picker.scrollIntoView({behavior:'smooth',block:'start'});
-
-    // crossfade
     current.classList.add('fading');
     setTimeout(()=>{
-      current.classList.remove('active','fading');
-      current.style.display='none';
-      next.style.display='block';
-      // force reflow
-      void next.offsetHeight;
-      next.classList.add('active');
-      // re-observe reveals in new version
+      current.classList.remove('active','fading');current.style.display='none';
+      next.style.display='block';void next.offsetHeight;next.classList.add('active');
       observeReveals();
     },350);
   });
