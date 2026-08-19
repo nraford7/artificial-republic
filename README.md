@@ -1,6 +1,6 @@
-# Build an AI Republic, Not a Prince
+# The Agentic Republic of Venice
 
-An essay by Noah Raford: *Venice's lesson for the design of agentic AI, distribute authority, and never crown a single mind.*
+An essay by Noah Raford: *What a thousand-year-old city on the water can teach us about building machines that act.*
 
 Venice discovered that you do not make a complex system reliable by finding one exceptionally intelligent decision-maker. You make it reliable by decomposing authority, specializing functions, recording state, and forcing consequential actions through checks. The same is true for agentic AI.
 
